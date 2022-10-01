@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using SalaryFond.ViewModels;
 
 namespace SalaryFond.Services
 {
@@ -11,7 +12,7 @@ namespace SalaryFond.Services
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            //services.AddSingleton<>();
+            services.AddSingleton<MainWindowViewModel>();
             return services;
         }
     }

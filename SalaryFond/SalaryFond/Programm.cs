@@ -18,7 +18,7 @@ namespace SalaryFond
             app.Run();
         }
 
-        /*public static IHostBuilder CreateHostBuilder(string[] Args)
+        public static IHostBuilder CreateHostBuilder(string[] Args)
         {
             var host_builder = Host.CreateDefaultBuilder(Args);
 
@@ -32,7 +32,7 @@ namespace SalaryFond
             host_builder.ConfigureServices(App.ConfigureServices);
 
             return host_builder;
-        }*/
+        }
 
     }
 }
