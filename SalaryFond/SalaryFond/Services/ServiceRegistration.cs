@@ -13,6 +13,7 @@ namespace SalaryFond.Services
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<AddCompanyViewModel>();
             return services;
         }
     }

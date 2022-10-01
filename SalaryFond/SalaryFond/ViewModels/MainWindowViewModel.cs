@@ -9,12 +9,20 @@ namespace SalaryFond.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
     {
+        public AddCompanyViewModel AddCompany { get; }
+
         private string _title = "Главное окно";
 
         public string Title
         {
             get => _title;
             set => Set(ref _title, value);
+        }
+
+        public MainWindowViewModel(AddCompanyViewModel NewCompany)
+        {
+            AddCompany = NewCompany;
+            NewCompany.MainModel = this;
         }
     }
 }
