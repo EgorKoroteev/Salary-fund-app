@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KxCZH9EyyBmFS9upWcwTGgdVu5dLCa2UUeaj2HrnFRMdAQlak/q1EgucRfMrCTJk/fF2TQQoDj+mb4VoIqVdgg==",
+  "success": true,
+  "projectFilePath": "Z:\\C#Projects\\Сalculation of the salary fund\\ResultProject\\SalaryFond\\SalaryFond\\SalaryFond.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Egor\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
