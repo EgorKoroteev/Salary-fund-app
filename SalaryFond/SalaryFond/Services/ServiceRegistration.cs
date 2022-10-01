@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SalaryFond.ViewModels;
+using SalaryFond.Services;
 
 namespace SalaryFond.Services
 {
@@ -14,6 +10,9 @@ namespace SalaryFond.Services
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<AddCompanyViewModel>();
+
+            services.AddSingleton<CompaniesRepository>();
+            services.AddSingleton<WorkersRepository>();
             return services;
         }
     }

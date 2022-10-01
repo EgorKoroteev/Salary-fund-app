@@ -1,10 +1,5 @@
 ﻿using SalaryFond.Models.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalaryFond.Models
 {
@@ -65,6 +60,14 @@ namespace SalaryFond.Models
         }
 
 
+        private int _Prize;
+
+        public int Prize
+        {
+            get { return _Prize; }
+            set { _Prize = value; }
+        }
+
 
         // Можно вводить
         private int _PrizeBoss;
@@ -93,6 +96,9 @@ namespace SalaryFond.Models
 
         // Можно вводить
         public ObservableCollection<WorkedDay> WorkedDays = new ObservableCollection<WorkedDay>();
+
+
+
 
         /*// Можно вводить
         public List<AdditionalProfessions> AdditionalProfessions = new List<AdditionalProfessions>();

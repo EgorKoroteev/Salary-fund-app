@@ -5,9 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryFond"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800"
+        Title="{Binding Title}" Height="600" Width="1200"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
+        <GroupBox Grid.Column="0" Header="Подразделения"></GroupBox>
+        <GroupBox Grid.Column="1" Header="Сотрудники"></GroupBox>
+        <GroupBox Grid.Column="2" Header="Карточка сотрудника"></GroupBox>
     </Grid>
 </Window>
