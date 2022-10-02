@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryFond"
+        xmlns:c="clr-namespace:SalaryFond.Models"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="600" Width="1200"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
@@ -15,7 +16,16 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Grid.Column="0" Header="Подразделения">
-            <ListBox/>
+            <ListBox ItemsSource="{Binding Companies}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="c:Company">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding Workers.Count, StringFormat=({0})}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="Сотрудники">
             <ListBox/>
