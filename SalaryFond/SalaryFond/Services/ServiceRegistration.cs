@@ -13,6 +13,7 @@ namespace SalaryFond.Services
 
             services.AddSingleton<CompaniesRepository>();
             services.AddSingleton<WorkersRepository>();
+            services.AddSingleton<WorkersManager>();
             return services;
         }
     }

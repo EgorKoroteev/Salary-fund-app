@@ -14,8 +14,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Column="0" Header="Подразделения"></GroupBox>
-        <GroupBox Grid.Column="1" Header="Сотрудники"></GroupBox>
+        <GroupBox Grid.Column="0" Header="Подразделения">
+            <ListBox/>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Сотрудники">
+            <ListBox/>
+        </GroupBox>
         <GroupBox Grid.Column="2" Header="Карточка сотрудника"></GroupBox>
     </Grid>
 </Window>
