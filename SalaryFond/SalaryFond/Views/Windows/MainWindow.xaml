@@ -37,7 +37,8 @@
         <GroupBox Grid.Column="1" Header="Сотрудники">
             <DockPanel>
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="35">
-                    <Button Content="Добавить" Margin="8,3" Background="Green" Foreground="White"/>
+                    <Button Content="Добавить" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewWorkerCommand}"
+                            CommandParameter="{Binding SelectedCompany}"/>
                     <Button Content="Изменить" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditWorkerCommand}" 
                             CommandParameter="{Binding SelectedWorker}"/>
                 </UniformGrid>

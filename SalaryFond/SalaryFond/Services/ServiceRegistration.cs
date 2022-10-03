@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SalaryFond.ViewModels;
 using SalaryFond.Services;
+using SalaryFond.Services.Interfaces;
 
 namespace SalaryFond.Services
 {
@@ -14,6 +15,8 @@ namespace SalaryFond.Services
             services.AddSingleton<CompaniesRepository>();
             services.AddSingleton<WorkersRepository>();
             services.AddSingleton<WorkersManager>();
+
+            services.AddTransient<IUserDialogService, WindowsUserDialogService>();
             return services;
         }
     }
