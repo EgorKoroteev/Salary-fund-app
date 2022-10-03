@@ -24,6 +24,7 @@
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="Файл">
+                <MenuItem Header="Загрузить базу данных"/>
                 <MenuItem Header="Выгрузить базу данных" Command="{Binding ExportBDCommand}"/>
             </MenuItem>
         </Menu>

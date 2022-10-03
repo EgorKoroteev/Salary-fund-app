@@ -130,7 +130,7 @@ namespace SalaryFond.ViewModels
 
         public ICommand CreateNewCompanyCommand => _CreateNewCompanyCommand ??= new LambdaCommand(OnCreateNewCompanyCommandExecuted, CanCreateNewCompanyCommandExecute);
 
-        private static bool CanCreateNewCompanyCommandExecute(object p) => p is Company;
+        private static bool CanCreateNewCompanyCommandExecute(object p) => true;
 
         private void OnCreateNewCompanyCommandExecuted(object p)
         {
