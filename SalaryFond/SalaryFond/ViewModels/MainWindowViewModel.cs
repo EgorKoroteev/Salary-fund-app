@@ -11,15 +11,16 @@ using SalaryFond.Infrastructure.Commads;
 using SalaryFond.Views.Windows;
 using System.Windows;
 using SalaryFond.Services.Interfaces;
+using SalaryFond.Services.WorkWithFiles;
 
 namespace SalaryFond.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        public AddCompanyViewModel AddCompany { get; }
-
         private WorkersManager _WorkersManager;
         private IUserDialogService _UserDialog;
+        private WorkFiles _WorkFiles;
+
         private string _title = "Главное окно";
 
         public string Title
@@ -98,15 +99,83 @@ namespace SalaryFond.ViewModels
 
         #endregion
 
+        #region Команда редактирования подразделения
+
+        private ICommand _EditCompanyCommand;
+
+        public ICommand EditCompanyCommand => _EditCompanyCommand ??= new LambdaCommand(OnEditCompanyCommandExecuted, CanEditCompanyCommandExecute);
+
+        private static bool CanEditCompanyCommandExecute(object p) => p is Company;
+
+        private void OnEditCompanyCommandExecuted(object p)
+        {
+            if (_UserDialog.Edit(p))
+            {
+                _WorkersManager.UpdateCompany((Company)p);
+
+                _UserDialog.ShowInformation("Подразделение отредактировано", "Медеджер подразделений");
+            }
+            else
+            {
+                _UserDialog.ShowWarning("Отказ от редактирования", "Медеджер подразделений");
+            }
+
+        }
+
+        #endregion
+
+        #region Команда создания нового подразделения
+
+        private ICommand _CreateNewCompanyCommand;
+
+        public ICommand CreateNewCompanyCommand => _CreateNewCompanyCommand ??= new LambdaCommand(OnCreateNewCompanyCommandExecuted, CanCreateNewCompanyCommandExecute);
+
+        private static bool CanCreateNewCompanyCommandExecute(object p) => p is Company;
+
+        private void OnCreateNewCompanyCommandExecuted(object p)
+        {
+            var company = new Company();
+
+            if (!_UserDialog.Edit(company) || _WorkersManager.CreateCompany(company))
+            {
+                OnPropertyChanged(nameof(Companies));
+                return;
+            }
+
+            if (_UserDialog.Confirm("Не удалось добавить нового сотрудника. Повторить?", "Менеджер сотрудников"))
+            {
+                OnCreateNewWorkerCommandExecuted(p);
+            }
+
+        }
+
+        #endregion
+
+        #region Команда для выгрузги БД
+
+        private ICommand _ExportBDCommand;
+
+        public ICommand ExportBDCommand => _ExportBDCommand ??= new LambdaCommand(OnExportBDCommandExecuted, CanExportBDCommandExecute);
+
+        private static bool CanExportBDCommandExecute(object p) => true;
+
+        private void OnExportBDCommandExecuted(object p)
+        {
+            _WorkFiles.WriteJsonBD(_WorkersManager.Companies);
+        }
+
+        #endregion
+
         #endregion
 
         public IEnumerable<Company> Companies => _WorkersManager.Companies;
         public IEnumerable<Worker> Workers => _WorkersManager.Workers;
 
-        public MainWindowViewModel(WorkersManager WorkersManager, IUserDialogService UserDialog)
+        public MainWindowViewModel(WorkersManager WorkersManager, IUserDialogService UserDialog, WorkFiles WorkFiles)
         {
             _WorkersManager = WorkersManager;
             _UserDialog = UserDialog;
+            _WorkFiles = WorkFiles;
         }
     }
 }

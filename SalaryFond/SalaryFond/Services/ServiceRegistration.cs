@@ -2,6 +2,7 @@
 using SalaryFond.ViewModels;
 using SalaryFond.Services;
 using SalaryFond.Services.Interfaces;
+using SalaryFond.Services.WorkWithFiles;
 
 namespace SalaryFond.Services
 {
@@ -15,6 +16,7 @@ namespace SalaryFond.Services
             services.AddSingleton<CompaniesRepository>();
             services.AddSingleton<WorkersRepository>();
             services.AddSingleton<WorkersManager>();
+            services.AddSingleton<WorkFiles>();
 
             services.AddTransient<IUserDialogService, WindowsUserDialogService>();
             return services;

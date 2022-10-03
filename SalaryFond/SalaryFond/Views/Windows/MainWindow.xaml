@@ -7,11 +7,11 @@
         xmlns:c="clr-namespace:SalaryFond.Infrastructure.Commads"
         xmlns:m="clr-namespace:SalaryFond.Models"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="600" Width="1200"
+        Title="{Binding Title}" Height="600" Width="1400"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="360"/>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -19,10 +19,10 @@
         <GroupBox Grid.Column="0" Header="Подразделения">
             <DockPanel>
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="35">
-                    <Button Content="Добавить подразделение" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewWorkerCommand}"
+                    <Button Content="Добавить подразделение" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewCompanyCommand}"
                             CommandParameter="{Binding SelectedCompany}"/>
-                    <Button Content="Изменить подразделение" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditWorkerCommand}" 
-                            CommandParameter="{Binding SelectedWorker}"/>
+                    <Button Content="Изменить подразделение" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditCompanyCommand}" 
+                            CommandParameter="{Binding SelectedCompany}"/>
                 </UniformGrid>
                 <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
                     <ListBox.ItemContainerStyle>
@@ -47,8 +47,8 @@
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="35">
                     <Button Content="Добавить" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewWorkerCommand}"
                             CommandParameter="{Binding SelectedCompany}"/>
-                    <Button Content="Изменить" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditWorkerCommand}" 
-                            CommandParameter="{Binding SelectedWorker}"/>
+                    <Button Content="Изменить" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding ExportBDCommand}" 
+                            />
                 </UniformGrid>
                 <ListBox ItemsSource="{Binding SelectedCompany.Workers}" SelectedItem="{Binding SelectedWorker}">
                     <ListBox.ItemContainerStyle>
@@ -149,9 +149,10 @@
                     </DataGrid>
                 </Grid>
 
-                <Grid Grid.Row="5">
+                <Grid Grid.Row="5" DataContext="{Binding }">
                     <DockPanel>
                         <TextBlock Text="Итого к выплате = 19999" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <Button Content="Выгрузить БД" Command="{Binding }"/>
                     </DockPanel>
                 </Grid>
             </Grid>
