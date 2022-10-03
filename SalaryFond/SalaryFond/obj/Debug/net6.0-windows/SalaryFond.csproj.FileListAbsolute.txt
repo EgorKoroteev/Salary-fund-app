@@ -51,3 +51,7 @@ Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFon
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\App.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\AddCompanyWindow.g.cs
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\AddCompanyWindow.baml
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\WorkerEditorWindow.g.cs
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\WorkerEditorWindow.baml
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Debug\net6.0-windows\Magnum.dll
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Debug\net6.0-windows\Newtonsoft.Json.dll

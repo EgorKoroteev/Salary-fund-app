@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryFond"
-        xmlns:c="clr-namespace:SalaryFond.Models"
+        xmlns:c="clr-namespace:SalaryFond.Infrastructure.Commads"
+        xmlns:m="clr-namespace:SalaryFond.Models"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="600" Width="1200"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
@@ -16,9 +17,14 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Grid.Column="0" Header="Подразделения">
-            <ListBox ItemsSource="{Binding Companies}">
+            <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="c:Company">
+                    <DataTemplate DataType="m:Company">
                         <DockPanel>
                             <TextBlock DockPanel.Dock="Right" Text="{Binding Workers.Count, StringFormat=({0})}"/>
                             <TextBlock Text="{Binding Name}"/>
@@ -27,9 +33,119 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </GroupBox>
+        
         <GroupBox Grid.Column="1" Header="Сотрудники">
-            <ListBox/>
+            <DockPanel>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="35">
+                    <Button Content="Добавить" Margin="8,3" Background="Green" Foreground="White"/>
+                    <Button Content="Изменить" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditWorkerCommand}" 
+                            CommandParameter="{Binding SelectedWorker}"/>
+                </UniformGrid>
+                <ListBox ItemsSource="{Binding SelectedCompany.Workers}" SelectedItem="{Binding SelectedWorker}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:Worker">
+                            <TextBlock Text="{Binding FIO}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
         </GroupBox>
-        <GroupBox Grid.Column="2" Header="Карточка сотрудника"></GroupBox>
+        
+        <GroupBox Grid.Column="2" Header="Карточка сотрудника" DataContext="{Binding SelectedWorker}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FIO}" Margin="20,10,20,0"/>
+                        <TextBlock Text="Основаная должность : Повар" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <DockPanel>
+                        <TextBlock Text="Основное начисление по окладу = 23000" DockPanel.Dock="Top" Margin="20,0,0,10"/>
+                        <DataGrid>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Оклад" Width="*"/>
+                                <DataGridTextColumn Header="Часы(норма)" Width="*"/>
+                                <DataGridTextColumn Header="Часы(отработанные)" Width="*"/>
+                                <DataGridTextColumn Header="Ставка руб/час" Width="*"/>
+                                <DataGridTextColumn Header="Премия 10%" Width="*"/>
+                                <DataGridTextColumn Header="Премия руководителя" Width="*"/>
+                                <DataGridTextColumn Header="Больничные" Width="*"/>
+                                <DataGridTextColumn Header="Отпускные" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <DockPanel>
+                            <TextBlock Text="Начисление по доп. объему(совмещение) = 3000" DockPanel.Dock="Top" Margin="20,10,0,10"/>
+                            <DataGrid Margin="20,0,20,0">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Должность" Width="*"/>
+                                    <DataGridTextColumn Header="Часы(отработанные)" Width="*"/>
+                                    <DataGridTextColumn Header="Зарплата" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <DockPanel>
+                            <TextBlock Text="Удержания = 3000" DockPanel.Dock="Top" Margin="20,10,0,10"/>
+                            <DataGrid Margin="20,0,20,0">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Название" Width="*"/>
+                                    <DataGridTextColumn Header="Тип" Width="*"/>
+                                    <DataGridTextColumn Header="Сумма" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <TextBlock Text="Итого заработано = 10000"  Margin="20,10,0,0"/>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <TextBlock Text="Сумма промежуточных выплат за месяц = 23333"/>
+                    <DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Аванс" Width="*"/>
+                            <DataGridTextColumn Header="РКО" Width="*"/>
+                            <DataGridTextColumn Header="Исп. лист" Width="*"/>
+                            <DataGridTextColumn Header="Перечислено р/с" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <DockPanel>
+                        <TextBlock Text="Итого к выплате = 19999" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                    </DockPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
