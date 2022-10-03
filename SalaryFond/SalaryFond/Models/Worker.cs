@@ -89,7 +89,7 @@ namespace SalaryFond.Models
         
 
         // Можно вводить
-        public ObservableCollection<AdditionalProfessions> AdditionalProfessions = new ObservableCollection<AdditionalProfessions>();
+        public ObservableCollection<AdditionalProfession> AdditionalProfessions = new ObservableCollection<AdditionalProfession>();
 
         // Можно вводить
         public ObservableCollection<Penalties> Penalties = new ObservableCollection<Penalties>();

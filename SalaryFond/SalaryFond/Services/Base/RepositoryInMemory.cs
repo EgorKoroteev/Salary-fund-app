@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SalaryFond.Services.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace SalaryFond.Services.Base
 {
     abstract class RepositoryInMemory<T> : IRepository<T> where T : IEntity
     {
-        private readonly List<T> _Entities = new List<T>();
+        private readonly ObservableCollection<T> _Entities = new ObservableCollection<T>();
         private int _LastId;
 
         protected RepositoryInMemory() { }
@@ -35,7 +36,7 @@ namespace SalaryFond.Services.Base
 
         public T GetOne() => _Entities[0];
 
-        public IEnumerable<T> GetAll() => _Entities;
+        public ObservableCollection<T> GetAll() => _Entities;
 
         public bool Remove(T entity) => _Entities.Remove(entity);
 

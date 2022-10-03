@@ -1,6 +1,7 @@
 ﻿using SalaryFond.Models.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace SalaryFond.Services.Interfaces
     {
         void Add(T entity);
 
-        IEnumerable<T> GetAll();
+        ObservableCollection<T> GetAll();
 
         T Get(int id) => GetAll().FirstOrDefault(entity => entity.Id == id);
 

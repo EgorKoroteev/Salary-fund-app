@@ -92,7 +92,8 @@
                 <Grid Grid.Row="0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding FIO}" Margin="20,10,20,0"/>
-                        <TextBlock Text="Основаная должность : Повар" Margin="0,10,0,0"/>
+                        <TextBlock Text="Основаная должность : " Margin="0,10,0,0"/>
+                        <TextBlock Text="{Binding MainProfession}" Margin="0,10,0,0"/>
                     </StackPanel>
                 </Grid>
 
@@ -101,7 +102,7 @@
                         <TextBlock Text="Основное начисление по окладу = 23000" DockPanel.Dock="Top" Margin="20,0,0,10"/>
                         <DataGrid>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Оклад" Width="*"/>
+                                <DataGridTextColumn Header="Оклад" Binding="{Binding Path=MainSalary}" Width="*"/>
                                 <DataGridTextColumn Header="Часы(норма)" Width="*"/>
                                 <DataGridTextColumn Header="Часы(отработанные)" Width="*"/>
                                 <DataGridTextColumn Header="Ставка руб/час" Width="*"/>
@@ -110,6 +111,9 @@
                                 <DataGridTextColumn Header="Больничные" Width="*"/>
                                 <DataGridTextColumn Header="Отпускные" Width="*"/>
                             </DataGrid.Columns>
+                            <DataGrid.Items>
+                                <m:Worker/>
+                            </DataGrid.Items>
                         </DataGrid>
                     </DockPanel>
                 </Grid>
@@ -123,7 +127,7 @@
                     <Grid Grid.Column="0">
                         <DockPanel>
                             <TextBlock Text="Начисление по доп. объему(совмещение) = 3000" DockPanel.Dock="Top" Margin="20,10,0,10"/>
-                            <DataGrid Margin="20,0,20,0">
+                            <DataGrid Margin="20,0,20,0" ItemsSource="{Binding AdditionalProfessions}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Должность" Width="*"/>
                                     <DataGridTextColumn Header="Часы(отработанные)" Width="*"/>

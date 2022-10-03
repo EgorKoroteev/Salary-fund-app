@@ -12,6 +12,7 @@ using SalaryFond.Views.Windows;
 using System.Windows;
 using SalaryFond.Services.Interfaces;
 using SalaryFond.Services.WorkWithFiles;
+using System.Collections.ObjectModel;
 
 namespace SalaryFond.ViewModels
 {
@@ -58,7 +59,9 @@ namespace SalaryFond.ViewModels
             if (_UserDialog.Edit(p))
             {
                 _WorkersManager.Update((Worker)p);
-
+                var work = SelectedCompany;
+                SelectedCompany = null;
+                SelectedCompany = work;
                 _UserDialog.ShowInformation("Сотрудник отредактирован", "Медеджер сотрудников");
             }
             else
@@ -112,7 +115,7 @@ namespace SalaryFond.ViewModels
             if (_UserDialog.Edit(p))
             {
                 _WorkersManager.UpdateCompany((Company)p);
-
+                
                 _UserDialog.ShowInformation("Подразделение отредактировано", "Медеджер подразделений");
             }
             else
@@ -168,8 +171,10 @@ namespace SalaryFond.ViewModels
 
         #endregion
 
-        public IEnumerable<Company> Companies => _WorkersManager.Companies;
-        public IEnumerable<Worker> Workers => _WorkersManager.Workers;
+        public ObservableCollection<Company> Companies => _WorkersManager.Companies;
+
+        public ObservableCollection<Worker> Workers => _WorkersManager.Workers;
+
 
         public MainWindowViewModel(WorkersManager WorkersManager, IUserDialogService UserDialog, WorkFiles WorkFiles)
         {
