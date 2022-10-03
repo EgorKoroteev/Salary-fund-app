@@ -17,21 +17,29 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Grid.Column="0" Header="Подразделения">
-            <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="m:Company">
-                        <DockPanel>
-                            <TextBlock DockPanel.Dock="Right" Text="{Binding Workers.Count, StringFormat=({0})}"/>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <DockPanel>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="35">
+                    <Button Content="Добавить подразделение" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewWorkerCommand}"
+                            CommandParameter="{Binding SelectedCompany}"/>
+                    <Button Content="Изменить подразделение" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditWorkerCommand}" 
+                            CommandParameter="{Binding SelectedWorker}"/>
+                </UniformGrid>
+                <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:Company">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Right" Text="{Binding Workers.Count, StringFormat=({0})}"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
         </GroupBox>
         
         <GroupBox Grid.Column="1" Header="Сотрудники">
