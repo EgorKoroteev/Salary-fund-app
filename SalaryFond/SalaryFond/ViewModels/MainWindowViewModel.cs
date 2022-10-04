@@ -102,6 +102,34 @@ namespace SalaryFond.ViewModels
 
         #endregion
 
+
+        #region Команда создания дополнительной должности
+
+        private ICommand _CreateAdditionalProfessionCommand;
+
+        public ICommand CreateAdditionalProfessionCommand => _CreateAdditionalProfessionCommand ??= new LambdaCommand(OnCreateAdditionalProfessionCommandExecuted, CanCreateAdditionalProfessionCommandExecute);
+
+        private static bool CanCreateAdditionalProfessionCommandExecute(object p) => p is Worker;
+
+        private void OnCreateAdditionalProfessionCommandExecuted(object p)
+        {
+            var worker = (Worker)p;
+            var additional = new AdditionalProfession();
+
+            if (!_UserDialog.Edit(additional) || _WorkersManager.CreateAdditionalProfession(additional, worker.FIO))
+            {
+                OnPropertyChanged(nameof(Workers));
+                return;
+            }
+
+            if (_UserDialog.Confirm("Не удалось добавить новую должность. Повторить?", "Менеджер сотрудников"))
+            {
+                OnCreateAdditionalProfessionCommandExecuted(p);
+            }
+
+        }
+
+        #endregion
         #region Команда редактирования подразделения
 
         private ICommand _EditCompanyCommand;

@@ -78,6 +78,61 @@ namespace SalaryFond.Models
             set { _PrizeBoss = value; }
         }
 
+
+        // Можно вводить
+        private int _holidayPay;
+
+        public int HolidayPay
+        {
+            get { return _holidayPay; }
+            set { _holidayPay = value; }
+        }
+
+        // Можно вводить
+        private int _sickPay;
+
+        public int SickPay
+        {
+            get { return _sickPay; }
+            set { _sickPay = value; }
+        }
+
+        // Можно вводить
+        private int _prepayment;
+
+        public int Prepayment
+        {
+            get { return _prepayment; }
+            set { _prepayment = value; }
+        }
+
+        // Можно вводить
+        private int _rko;
+
+        public int RKO
+        {
+            get { return _rko; }
+            set { _rko = value; }
+        }
+
+        // Можно вводить
+        private int _executiveList;
+
+        public int ExecutiveList
+        {
+            get { return _executiveList; }
+            set { _executiveList = value; }
+        }
+
+        // Можно вводить
+        private int _transferByCard;
+
+        public int TransferByCard
+        {
+            get { return _transferByCard; }
+            set { _transferByCard = value; }
+        }
+
         private int _ResultSalary;
 
         public int ResultSalary
@@ -85,8 +140,6 @@ namespace SalaryFond.Models
             get { return _ResultSalary; }
             set { _ResultSalary = value; }
         }
-
-        
 
         // Можно вводить
         public ObservableCollection<AdditionalProfession> AdditionalProfessions = new ObservableCollection<AdditionalProfession>();
@@ -96,17 +149,5 @@ namespace SalaryFond.Models
 
         // Можно вводить
         public ObservableCollection<WorkedDay> WorkedDays = new ObservableCollection<WorkedDay>();
-
-
-
-
-        /*// Можно вводить
-        public List<AdditionalProfessions> AdditionalProfessions = new List<AdditionalProfessions>();
-
-        // Можно вводить
-        public List<Penalties> Penalties = new List<Penalties>();
-
-        // Можно вводить
-        List<WorkedDay> WorkedDays = new List<WorkedDay>();*/
     }
 }
