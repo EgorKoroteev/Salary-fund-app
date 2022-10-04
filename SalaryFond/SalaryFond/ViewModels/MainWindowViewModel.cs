@@ -197,6 +197,21 @@ namespace SalaryFond.ViewModels
 
         #endregion
 
+        #region Команда для выгрузги БД
+
+        /*private ICommand _ImportBDCommand;
+
+        public ICommand ImportBDCommand => _ImportBDCommand ??= new LambdaCommand(OnImportBDCommandExecuted, CanImportBDCommandExecute);
+
+        private static bool CanImportBDCommandExecute(object p) => true;
+
+        private void OnImportBDCommandExecuted(object p)
+        {
+            _WorkersManager.Companies = _WorkFiles.ReadJsonBD();
+        }*/
+
+        #endregion
+
         #endregion
 
         public ObservableCollection<Company> Companies => _WorkersManager.Companies;

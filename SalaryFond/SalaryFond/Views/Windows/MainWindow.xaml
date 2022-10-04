@@ -7,7 +7,7 @@
         xmlns:c="clr-namespace:SalaryFond.Infrastructure.Commads"
         xmlns:m="clr-namespace:SalaryFond.Models"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="650" Width="1400"
+        Title="{Binding Title}" Height="750" Width="1400"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,6 +26,11 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Загрузить базу данных"/>
                 <MenuItem Header="Выгрузить базу данных" Command="{Binding ExportBDCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Результат">
+                <MenuItem.Command>
+                    <c:OpenResultCompaniesCommand/>
+                </MenuItem.Command>
             </MenuItem>
         </Menu>
         
@@ -86,9 +91,9 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="300"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="80"/>
                     <RowDefinition/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
@@ -101,7 +106,11 @@
 
                 <Grid Grid.Row="1">
                     <DockPanel>
-                        <TextBlock Text="Основное начисление по окладу = 23000" DockPanel.Dock="Top" Margin="20,0,0,10"/>
+                        <StackPanel DockPanel.Dock="Top" >
+                            <TextBlock Text="Основное начисление по окладу = " Margin="20,0,0,10"/>
+                            <TextBlock Text="{Binding MainResultSalary}"/>
+                        </StackPanel>
+                        
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -197,43 +206,39 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                        <TextBlock Text="Начисление по доп. объему(совмещение) = 3000" DockPanel.Dock="Top" Margin="20,10,0,10"/>
-                        <GroupBox Header="Pro">
-                            
-                            <ListBox ItemsSource="{Binding AdditionalProfessions}">
-
-                            </ListBox>
-                        </GroupBox>
                         <DockPanel>
-                            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="35">
-                                
-                            </UniformGrid>
-                            
 
-                            
-                            
-                            
-                            
+                            <StackPanel DockPanel.Dock="Top">
+                                <TextBlock Text="Начисление по доп. объему(совмещение) = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
+                                <TextBlock Text="{Binding SummAdditionalProfessions}"/>
+                            </StackPanel>
+
+                            <ListBox ItemsSource="{Binding AdditionalProfessions}"/>
+
                         </DockPanel>
                     </Grid>
                     <Grid Grid.Column="1">
                         <DockPanel>
-                            <TextBlock Text="Удержания = 3000" DockPanel.Dock="Top" Margin="20,10,0,10"/>
-                            <DataGrid Margin="20,0,20,0">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Название" Width="*"/>
-                                    <DataGridTextColumn Header="Тип" Width="*"/>
-                                    <DataGridTextColumn Header="Сумма" Width="*"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <StackPanel DockPanel.Dock="Top">
+                                <TextBlock Text="Удержания = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
+                                <TextBlock Text="{Binding SummPenalties}"/>
+                            </StackPanel>
+                            
+                            <ListBox ItemsSource="{Binding Penalties}"/>
                         </DockPanel>
                     </Grid>
                 </Grid>
 
                 <Grid Grid.Row="3">
                     <StackPanel>
-                        <TextBlock Text="Итого заработано = 10000" Margin="20,0,0,0"/>
-                        <TextBlock Text="Сумма промежуточных выплат за месяц = 23333"  Margin="20,0,0,0"/>
+                        <StackPanel>
+                            <TextBlock Text="Итого заработано = " Margin="20,0,0,0"/>
+                            <TextBlock Text="{Binding FinalResultSalary}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="Сумма промежуточных выплат за месяц ="  Margin="20,0,0,0"/>
+                            <TextBlock Text="{Binding SummPay}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
 
@@ -286,10 +291,13 @@
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Row="5" Height="20">
-                    <DockPanel>
-                        <TextBlock Text="Итого к выплате = 19999" VerticalAlignment="Center" Margin="20,0,0,0"/>
-                    </DockPanel>
+                <Grid Grid.Row="5">
+
+                    <StackPanel>
+                        <TextBlock Text="Итого к выплате = " VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <TextBlock Text="{Binding ResultSalary}"/>
+                    </StackPanel>
+
                 </Grid>
             </Grid>
         </GroupBox>

@@ -133,6 +133,30 @@ namespace SalaryFond.Models
             set { _transferByCard = value; }
         }
 
+        private int _MainResultSalary;
+
+        public int MainResultSalary
+        {
+            get { return _MainResultSalary; }
+            set { _MainResultSalary = value; }
+        }
+
+        private int _FinalResultSalary;
+
+        public int FinalResultSalary
+        {
+            get { return _FinalResultSalary; }
+            set { _FinalResultSalary = value; }
+        }
+
+        private int _SummPay;
+
+        public int SummPay
+        {
+            get { return _SummPay; }
+            set { _SummPay = value; }
+        }
+
         private int _ResultSalary;
 
         public int ResultSalary
@@ -141,13 +165,95 @@ namespace SalaryFond.Models
             set { _ResultSalary = value; }
         }
 
-        // Можно вводить
-        public ObservableCollection<AdditionalProfession> AdditionalProfessions = new ObservableCollection<AdditionalProfession>();
+        private int _SummAdditionalProfessions;
+
+        public int SummAdditionalProfessions
+        {
+            get { return _SummAdditionalProfessions; }
+            set { _SummAdditionalProfessions = value; }
+        }
+
+        private int _SummPenalties;
+
+        public int SummPenalties
+        {
+            get { return _SummPenalties; }
+            set { _SummPenalties = value; }
+        }
 
         // Можно вводить
-        public ObservableCollection<Penalties> Penalties = new ObservableCollection<Penalties>();
+        public ObservableCollection<AdditionalProfession> AdditionalProfessions = new ObservableCollection<AdditionalProfession> { new AdditionalProfession { Name = "JJJJJJJJ"} };
+
+        // Можно вводить
+        public ObservableCollection<Penalties> Penalties = new ObservableCollection<Penalties> { new Penalties { Name = "HEllo", Summ = 2000} };
 
         // Можно вводить
         public ObservableCollection<WorkedDay> WorkedDays = new ObservableCollection<WorkedDay>();
+
+
+        public void SumResultSalary()
+        {
+            if (MainSalary > 0 && NormalHours > 0)
+            {
+                RateRUB = MainSalary / NormalHours;
+                MainResultSalary = WorkedHours * (MainSalary / NormalHours) + PrizeBoss + HolidayPay + SickPay;
+            }
+            
+
+            FinalResultSalary = MainResultSalary;
+
+            if (AdditionalProfessions.Count > 0)
+            {
+                for (int i = 0; i < AdditionalProfessions.Count; i++)
+                {
+                    FinalResultSalary += AdditionalProfessions[i].MainSalary;
+                }
+            }
+
+            if (Penalties.Count > 0)
+            {
+                for (int i = 0; i < Penalties.Count; i++)
+                {
+                    FinalResultSalary -= Penalties[i].Summ;
+                }
+            }
+
+            if (Penalties.Count <= 0)
+            {
+                Prize = 1000;
+            }
+
+
+            if (Penalties.Count <= 0 && Prize == 0)
+            {
+                FinalResultSalary += Prize;
+            }
+            else if (Penalties.Count > 0 && Prize > 0)
+            {
+                FinalResultSalary -= Prize;
+            }
+
+            ResultSalary = FinalResultSalary;
+
+            SummPay += Prepayment + TransferByCard + RKO + ExecutiveList;
+
+            ResultSalary -= Prepayment - TransferByCard - RKO - ExecutiveList;
+
+            if (AdditionalProfessions.Count > 0)
+            {
+                for (int i = 0; i < AdditionalProfessions.Count; i++)
+                {
+                    SummAdditionalProfessions += AdditionalProfessions[i].ResultSalary;
+                }
+            }
+
+            if (Penalties.Count > 0)
+            {
+                for (int i = 0; i < Penalties.Count; i++)
+                {
+                    SummPenalties += Penalties[i].Summ;
+                }
+            }
+        }
     }
 }

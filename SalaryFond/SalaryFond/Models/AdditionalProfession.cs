@@ -55,5 +55,14 @@ namespace SalaryFond.Models
             get { return _ResultSalary; }
             set { _ResultSalary = value; }
         }
+
+        public void SummResultSalary()
+        {
+            if (MainSalary > 0 && NormalHours > 0)
+            {
+                RateRUB = MainSalary / NormalHours;
+                ResultSalary = WorkedHours * (MainSalary / NormalHours);
+            }
+        }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\App.xaml
-51652723364
+6-1902550553
 
-34-1523029605
+371403284234
 221-74503990
-Views\Windows\AddCompanyWindow.xaml;Views\Windows\AdditionalProfessionEditorWindow.xaml;Views\Windows\CompanyEditorWindow.xaml;Views\Windows\MainWindow.xaml;Views\Windows\WorkerEditorWindow.xaml;
+Views\Windows\AddCompanyWindow.xaml;Views\Windows\AdditionalProfessionEditorWindow.xaml;Views\Windows\CompanyEditorWindow.xaml;Views\Windows\MainWindow.xaml;Views\Windows\ResultCompaniesWindow.xaml;Views\Windows\WorkerEditorWindow.xaml;
 
 True
 

@@ -16,6 +16,9 @@
     <Compile Update="Views\Windows\CompanyEditorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Windows\ResultCompaniesWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Windows\WorkerEditorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\ResultCompaniesWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\WorkerEditorWindow.xaml">
