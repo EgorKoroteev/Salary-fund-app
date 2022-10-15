@@ -13,6 +13,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -34,7 +35,32 @@
             </MenuItem>
         </Menu>
         
-        <GroupBox Grid.Column="0" Grid.Row="1" Header="Подразделения">
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Месяца">
+            <DockPanel>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="70" >
+                    <StackPanel>
+                        <Button Padding="5" Content="Открыть" Margin="8,3" Background="Green" Foreground="White"/>
+                    </StackPanel>
+                </UniformGrid>
+                <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:Company">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Right" Text="{Binding Workers.Count, StringFormat=({0})}"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1" Grid.Row="1" Header="Подразделения">
             <DockPanel>
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="70" >
                     <StackPanel>
@@ -62,7 +88,7 @@
             </DockPanel>
         </GroupBox>
 
-        <GroupBox Grid.Column="1" Grid.Row="1" Header="Сотрудники">
+        <GroupBox Grid.Column="2" Grid.Row="1" Header="Сотрудники">
             <DockPanel>
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="35">
                     <Button Content="Добавить" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewWorkerCommand}"
@@ -85,7 +111,7 @@
             </DockPanel>
         </GroupBox>
 
-        <GroupBox Grid.Column="2" Grid.Row="1" Header="Карточка сотрудника" DataContext="{Binding SelectedWorker}">
+        <GroupBox Grid.Column="3" Grid.Row="1" Header="Карточка сотрудника" DataContext="{Binding SelectedWorker}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -301,7 +327,7 @@
                 </Grid>
             </Grid>
         </GroupBox>
-        <Grid Grid.Row="2" Grid.Column="2">
+        <Grid Grid.Row="2" Grid.Column="3">
             <Button Content="Добавить доп должность" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateAdditionalProfessionCommand}"
                             CommandParameter="{Binding SelectedWorker}"/>
         </Grid>

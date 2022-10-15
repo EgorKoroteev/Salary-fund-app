@@ -44,6 +44,13 @@ namespace SalaryFond.ViewModels
         public Worker SelectedWorker { get => _SelectedWorker; set => Set(ref _SelectedWorker, value); }
         #endregion
 
+        #region Выбранный месяц
+
+        private Month _SelectedMonth;
+
+        public Month SelectedMonth { get => _SelectedMonth; set => Set(ref _SelectedMonth, value); }
+        #endregion
+
         #region Команды
 
         #region Команда редактирования сотрудника
@@ -59,9 +66,9 @@ namespace SalaryFond.ViewModels
             if (_UserDialog.Edit(p))
             {
                 _WorkersManager.Update((Worker)p);
-                var work = SelectedCompany;
+                var selectCompany = SelectedCompany;
                 SelectedCompany = null;
-                SelectedCompany = work;
+                SelectedCompany = selectCompany;
                 _UserDialog.ShowInformation("Сотрудник отредактирован", "Медеджер сотрудников");
             }
             else
@@ -72,7 +79,6 @@ namespace SalaryFond.ViewModels
         }
 
         #endregion
-
         #region Команда создания нового сотрудника
 
         private ICommand _CreateNewWorkerCommand;
@@ -102,7 +108,6 @@ namespace SalaryFond.ViewModels
 
         #endregion
 
-
         #region Команда создания дополнительной должности
 
         private ICommand _CreateAdditionalProfessionCommand;
@@ -130,6 +135,8 @@ namespace SalaryFond.ViewModels
         }
 
         #endregion
+
+
         #region Команда редактирования подразделения
 
         private ICommand _EditCompanyCommand;
@@ -154,7 +161,6 @@ namespace SalaryFond.ViewModels
         }
 
         #endregion
-
         #region Команда создания нового подразделения
 
         private ICommand _CreateNewCompanyCommand;
@@ -182,6 +188,7 @@ namespace SalaryFond.ViewModels
 
         #endregion
 
+
         #region Команда для выгрузги БД
 
         private ICommand _ExportBDCommand;
@@ -196,7 +203,6 @@ namespace SalaryFond.ViewModels
         }
 
         #endregion
-
         #region Команда для выгрузги БД
 
         /*private ICommand _ImportBDCommand;
@@ -217,6 +223,8 @@ namespace SalaryFond.ViewModels
         public ObservableCollection<Company> Companies => _WorkersManager.Companies;
 
         public ObservableCollection<Worker> Workers => _WorkersManager.Workers;
+
+        public ObservableCollection<Month> Months => _WorkersManager.Months;
 
 
         public MainWindowViewModel(WorkersManager WorkersManager, IUserDialogService UserDialog, WorkFiles WorkFiles)

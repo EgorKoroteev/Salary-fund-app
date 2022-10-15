@@ -10,22 +10,23 @@
         "projectUniqueName": "Z:\\C#Projects\\Сalculation of the salary fund\\ResultProject\\SalaryFond\\SalaryFond\\SalaryFond.csproj",
         "projectName": "SalaryFond",
         "projectPath": "Z:\\C#Projects\\Сalculation of the salary fund\\ResultProject\\SalaryFond\\SalaryFond\\SalaryFond.csproj",
-        "packagesPath": "C:\\Users\\Egor\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Gof\\.nuget\\packages\\",
         "outputPath": "Z:\\C#Projects\\Сalculation of the salary fund\\ResultProject\\SalaryFond\\SalaryFond\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Egor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Gof\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows7.0"
+          "net6.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -67,7 +68,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -79,7 +81,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
