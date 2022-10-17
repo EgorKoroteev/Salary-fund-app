@@ -9,6 +9,7 @@ namespace SalaryFond.Services
 {
     static class TestData
     {
+        public static Month[] Months { get; } = Enumerable.Range(1, 12).Select(i => new Month { Name = $"Месяц {i}" }).ToArray();
         public static Company[] Companies { get; } = Enumerable.Range(1, 10).Select(i => new Company { Name = $"Подразделение {i}" }).ToArray();
 
         public static Worker[] Workers { get; } = CreateWorkers(Companies);

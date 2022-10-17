@@ -39,10 +39,10 @@
             <DockPanel>
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="70" >
                     <StackPanel>
-                        <Button Padding="5" Content="Открыть" Margin="8,3" Background="Green" Foreground="White"/>
+                        <Button Padding="5" Content="Пока не придумал" Margin="8,3" Background="Red" Foreground="White"/>
                     </StackPanel>
                 </UniformGrid>
-                <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
+                <ListBox ItemsSource="{Binding Months}" SelectedItem="{Binding SelectedMonth}" SelectedIndex="0">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -65,12 +65,12 @@
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="70" >
                     <StackPanel>
                         <Button Padding="5" Content="Добавить подразделение" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewCompanyCommand}"
-                            CommandParameter="{Binding SelectedCompany}"/>
+                            CommandParameter="{Binding SelectedMonth}"/>
                         <Button Padding="5" Content="Изменить подразделение" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditCompanyCommand}" 
                             CommandParameter="{Binding SelectedCompany}"/>
                     </StackPanel>
                 </UniformGrid>
-                <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
+                <ListBox ItemsSource="{Binding SelectedMonth.Companies}" SelectedItem="{Binding SelectedCompany}" SelectedIndex="0">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

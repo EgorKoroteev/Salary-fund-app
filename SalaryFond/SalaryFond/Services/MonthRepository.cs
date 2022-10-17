@@ -6,11 +6,13 @@ namespace SalaryFond.Services
 {
     internal class MonthRepository : RepositoryInMemory<Month>
     {
-        public MonthRepository() { }
+        public MonthRepository() : base(TestData.Months) { }
+
+        public Month Get(string MonthName) => GetAll().FirstOrDefault(g => g.Name == MonthName);
 
         protected override void Update(Month Source, Month End)
         {
-            throw new System.NotImplementedException();
+            End.Name = Source.Name;
         }
     }
 }

@@ -150,7 +150,10 @@ namespace SalaryFond.ViewModels
             if (_UserDialog.Edit(p))
             {
                 _WorkersManager.UpdateCompany((Company)p);
-                
+
+                var selectedMonth = SelectedMonth;
+                SelectedMonth = null;
+                SelectedMonth = selectedMonth;
                 _UserDialog.ShowInformation("Подразделение отредактировано", "Медеджер подразделений");
             }
             else
@@ -167,13 +170,15 @@ namespace SalaryFond.ViewModels
 
         public ICommand CreateNewCompanyCommand => _CreateNewCompanyCommand ??= new LambdaCommand(OnCreateNewCompanyCommandExecuted, CanCreateNewCompanyCommandExecute);
 
-        private static bool CanCreateNewCompanyCommandExecute(object p) => true;
+        private static bool CanCreateNewCompanyCommandExecute(object p) => p is Month;
 
         private void OnCreateNewCompanyCommandExecuted(object p)
         {
+            var month = (Month)p;
+
             var company = new Company();
 
-            if (!_UserDialog.Edit(company) || _WorkersManager.CreateCompany(company))
+            if (!_UserDialog.Edit(company) || _WorkersManager.CreateCompany(company, month.Name))
             {
                 OnPropertyChanged(nameof(Companies));
                 return;

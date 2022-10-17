@@ -58,10 +58,19 @@ namespace SalaryFond.Services
 
         public void Update(Worker Worker) => _Workers.Update(Worker.Id, Worker);
 
-        public bool CreateCompany(Company Company)
+        public bool CreateCompany(Company Company, string MonthName)
         {
             if (Company is null) throw new ArgumentNullException(nameof(Company));
+            if (string.IsNullOrWhiteSpace(MonthName)) throw new ArgumentException("Некоректное имя компании", nameof(MonthName));
 
+            var month = _Months.Get(MonthName);
+            if (month is null)
+            {
+                month = new Month { Name = MonthName };
+                _Months.Add(month);
+            }
+
+            month.Companies.Add(Company);
             _Companies.Add(Company);
             return true;
         }
