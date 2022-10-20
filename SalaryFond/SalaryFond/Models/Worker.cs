@@ -1,4 +1,5 @@
 ﻿using SalaryFond.Models.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 
 namespace SalaryFond.Models
@@ -26,17 +27,17 @@ namespace SalaryFond.Models
         }
 
         // Можно вводить
-        private int _MainSalary;
+        private float _MainSalary;
 
-        public int MainSalary
+        public float MainSalary
         {
             get { return _MainSalary; }
             set { _MainSalary = value; }
         }
 
-        private int _NormalHours;
+        private float _NormalHours;
 
-        public int NormalHours
+        public float NormalHours
         {
             get { return _NormalHours; }
             set { _NormalHours = value; }
@@ -51,9 +52,9 @@ namespace SalaryFond.Models
             set { _WorkedHours = value; }
         }
 
-        private int _RateRUB;
+        private float _RateRUB;
 
-        public int RateRUB
+        public float RateRUB
         {
             get { return _RateRUB; }
             set { _RateRUB = value; }
@@ -182,10 +183,10 @@ namespace SalaryFond.Models
         }
 
         // Можно вводить
-        public ObservableCollection<AdditionalProfession> AdditionalProfessions = new ObservableCollection<AdditionalProfession> { new AdditionalProfession { Name = "JJJJJJJJ"} };
+        public ObservableCollection<AdditionalProfession> AdditionalProfessions = new ObservableCollection<AdditionalProfession>();
 
         // Можно вводить
-        public ObservableCollection<Penalties> Penalties = new ObservableCollection<Penalties> { new Penalties { Name = "HEllo", Summ = 2000} };
+        public ObservableCollection<Penalties> Penalties = new ObservableCollection<Penalties>();
 
         // Можно вводить
         public ObservableCollection<WorkedDay> WorkedDays = new ObservableCollection<WorkedDay>();
@@ -196,7 +197,7 @@ namespace SalaryFond.Models
             if (MainSalary > 0 && NormalHours > 0)
             {
                 RateRUB = MainSalary / NormalHours;
-                MainResultSalary = WorkedHours * (MainSalary / NormalHours) + PrizeBoss + HolidayPay + SickPay;
+                MainResultSalary = Convert.ToInt32(WorkedHours * (MainSalary / NormalHours) + PrizeBoss + HolidayPay + SickPay);
             }
             
 
@@ -233,11 +234,9 @@ namespace SalaryFond.Models
                 FinalResultSalary -= Prize;
             }
 
-            ResultSalary = FinalResultSalary;
+            SummPay = Prepayment + TransferByCard + RKO + ExecutiveList;
 
-            SummPay += Prepayment + TransferByCard + RKO + ExecutiveList;
-
-            ResultSalary -= Prepayment - TransferByCard - RKO - ExecutiveList;
+            ResultSalary = FinalResultSalary - Prepayment - TransferByCard - RKO - ExecutiveList;
 
             if (AdditionalProfessions.Count > 0)
             {

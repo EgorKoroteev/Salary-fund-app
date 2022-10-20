@@ -1,4 +1,5 @@
-﻿using SalaryFond.Models;
+﻿using Magnum.Graphing;
+using SalaryFond.Models;
 using SalaryFond.Services.Base;
 using System.Linq;
 
@@ -13,6 +14,19 @@ namespace SalaryFond.Services
         protected override void Update(Month Source, Month End)
         {
             End.Name = Source.Name;
+            for (int i = 0; i < Source.Companies.Count; i++)
+            {
+                End.Companies.Add(Source.Companies[i]);
+            }
+        }
+
+        public void UpdateBD(Month Source, Month End)
+        {
+            End.Name = Source.Name;
+            for (int i = 0; i < Source.Companies.Count; i++)
+            {
+                End.Companies.Add(Source.Companies[i]);
+            }
         }
     }
 }

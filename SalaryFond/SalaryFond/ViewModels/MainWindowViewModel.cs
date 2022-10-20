@@ -107,6 +107,23 @@ namespace SalaryFond.ViewModels
         }
 
         #endregion
+        #region Команда удаления сотрудника
+
+        private ICommand _RemoveWorkerCommand;
+
+        public ICommand RemoveWorkerCommand => _RemoveWorkerCommand ??= new LambdaCommand(OnRemoveWorkerCommandExecuted, CanRemoveWorkerCommandExecute);
+
+        private bool CanRemoveWorkerCommandExecute(object p) => p is Worker worker && SelectedCompany != null && SelectedCompany.Workers.Contains(worker);
+
+        private void OnRemoveWorkerCommandExecuted(object p)
+        {
+            SelectedCompany.Workers.Remove((Worker)p);
+            var selectedCompany = SelectedCompany;
+            SelectedCompany = null;
+            SelectedCompany = selectedCompany;
+        }
+
+        #endregion
 
         #region Команда создания дополнительной должности
 
@@ -136,6 +153,33 @@ namespace SalaryFond.ViewModels
 
         #endregion
 
+        #region Команда создания штрафа
+
+        private ICommand _CreatePenaltieCommand;
+
+        public ICommand CreatePenaltieCommand => _CreatePenaltieCommand ??= new LambdaCommand(OnCreatePenaltieCommandExecuted, CanCreatePenaltieCommandExecute);
+
+        private static bool CanCreatePenaltieCommandExecute(object p) => p is Worker;
+
+        private void OnCreatePenaltieCommandExecuted(object p)
+        {
+            var worker = (Worker)p;
+            var penaltie = new Penalties();
+
+            if (!_UserDialog.Edit(penaltie) || _WorkersManager.CreatePenaltie(penaltie, worker.FIO))
+            {
+                OnPropertyChanged(nameof(Workers));
+                return;
+            }
+
+            if (_UserDialog.Confirm("Не удалось добавить новую должность. Повторить?", "Менеджер сотрудников"))
+            {
+                OnCreateAdditionalProfessionCommandExecuted(p);
+            }
+
+        }
+
+        #endregion
 
         #region Команда редактирования подразделения
 
@@ -192,6 +236,23 @@ namespace SalaryFond.ViewModels
         }
 
         #endregion
+        #region Команда удаления подразделения
+
+        private ICommand _RemoveCompanyCommand;
+
+        public ICommand RemoveCompanyCommand => _RemoveCompanyCommand ??= new LambdaCommand(OnRemoveCompanyCommandExecuted, CanRemoveCompanyCommandExecute);
+
+        private bool CanRemoveCompanyCommandExecute(object p) => p is Company company && SelectedMonth != null && SelectedMonth.Companies.Contains(company);
+
+        private void OnRemoveCompanyCommandExecuted(object p)
+        {
+            SelectedMonth.Companies.Remove((Company)p);
+            var selectedMonth = SelectedMonth;
+            SelectedMonth = null;
+            SelectedMonth = selectedMonth;
+        }
+
+        #endregion
 
 
         #region Команда для выгрузги БД
@@ -204,13 +265,13 @@ namespace SalaryFond.ViewModels
 
         private void OnExportBDCommandExecuted(object p)
         {
-            _WorkFiles.WriteJsonBD(_WorkersManager.Companies);
+            _WorkFiles.WriteJsonBD(_WorkersManager.Months);
         }
 
         #endregion
-        #region Команда для выгрузги БД
+        #region Команда для загрузки БД
 
-        /*private ICommand _ImportBDCommand;
+        private ICommand _ImportBDCommand;
 
         public ICommand ImportBDCommand => _ImportBDCommand ??= new LambdaCommand(OnImportBDCommandExecuted, CanImportBDCommandExecute);
 
@@ -218,8 +279,9 @@ namespace SalaryFond.ViewModels
 
         private void OnImportBDCommandExecuted(object p)
         {
-            _WorkersManager.Companies = _WorkFiles.ReadJsonBD();
-        }*/
+            var months = _WorkFiles.ReadJsonBD();
+            _WorkersManager.SetCompaniesFromBD(months);
+        }
 
         #endregion
 

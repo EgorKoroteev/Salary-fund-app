@@ -39,11 +39,11 @@ namespace SalaryFond.Views.Windows
 
         public static readonly DependencyProperty MainSalaryProperty =
             DependencyProperty.Register(nameof(MainSalary),
-                typeof(int),
+                typeof(float),
                 typeof(WorkerEditorWindow),
-                new PropertyMetadata(default(int)));
+                new PropertyMetadata(default(float)));
 
-        public int MainSalary { get => (int)GetValue(MainSalaryProperty); set => SetValue(MainSalaryProperty, value); }
+        public float MainSalary { get => (float)GetValue(MainSalaryProperty); set => SetValue(MainSalaryProperty, value); }
 
         #endregion
 
@@ -51,11 +51,11 @@ namespace SalaryFond.Views.Windows
 
         public static readonly DependencyProperty NormalHoursProperty =
             DependencyProperty.Register(nameof(NormalHours),
-                typeof(int),
+                typeof(float),
                 typeof(WorkerEditorWindow),
-                new PropertyMetadata(default(int)));
+                new PropertyMetadata(default(float)));
 
-        public int NormalHours { get => (int)GetValue(NormalHoursProperty); set => SetValue(NormalHoursProperty, value); }
+        public float NormalHours { get => (float)GetValue(NormalHoursProperty); set => SetValue(NormalHoursProperty, value); }
 
         #endregion
 

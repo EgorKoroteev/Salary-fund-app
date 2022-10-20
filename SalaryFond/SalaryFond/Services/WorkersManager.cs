@@ -56,6 +56,18 @@ namespace SalaryFond.Services
             return true;
         }
 
+        public bool CreatePenaltie(Penalties Penaltie, string WorkerFIO)
+        {
+            if (Penaltie is null) throw new ArgumentNullException(nameof(Penaltie));
+            if (string.IsNullOrWhiteSpace(WorkerFIO)) throw new ArgumentException("Некоректное ФИО сотрудника", nameof(WorkerFIO));
+
+            var worker = _Workers.Get(WorkerFIO);
+            if (worker is null) return false;
+
+            worker.Penalties.Add(Penaltie);
+            return true;
+        }
+
         public void Update(Worker Worker) => _Workers.Update(Worker.Id, Worker);
 
         public bool CreateCompany(Company Company, string MonthName)
@@ -76,5 +88,29 @@ namespace SalaryFond.Services
         }
 
         public void UpdateCompany(Company Company) => _Companies.Update(Company.Id, Company);
+
+        public void SetCompaniesFromBD(ObservableCollection<Month> months)
+        {
+            for (int i = 0; i < months.Count; i++)
+            {
+                if (months[i].Companies.Count > 0)
+                {
+                    _Months.UpdateBD(months[i], _Months.GetOne(i));
+                    for (int j = 0; j < months[i].Companies.Count; j++)
+                    {
+                        _Companies.Add(months[i].Companies[j]);
+                    }
+
+                    for (int t = 0; t < months[i].Companies.Count; t++)
+                    {
+                        _Companies.Add(months[i].Companies[t]);
+                        for (int b = 0; b < months[i].Companies[t].Workers.Count; b++)
+                        {
+                            _Workers.Add(months[i].Companies[t].Workers[b]);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="Файл">
-                <MenuItem Header="Загрузить базу данных"/>
+                <MenuItem Header="Загрузить базу данных" Command="{Binding ImportBDCommand}"/>
                 <MenuItem Header="Выгрузить базу данных" Command="{Binding ExportBDCommand}"/>
             </MenuItem>
             <MenuItem Header="Результат">
@@ -62,11 +62,13 @@
 
         <GroupBox Grid.Column="1" Grid.Row="1" Header="Подразделения">
             <DockPanel>
-                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="70" >
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1" >
                     <StackPanel>
                         <Button Padding="5" Content="Добавить подразделение" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateNewCompanyCommand}"
                             CommandParameter="{Binding SelectedMonth}"/>
                         <Button Padding="5" Content="Изменить подразделение" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditCompanyCommand}" 
+                            CommandParameter="{Binding SelectedCompany}"/>
+                        <Button Padding="5" Content="Удалить подразделение" Margin="8,3" Background="Red" Foreground="White" Command="{Binding RemoveCompanyCommand}" 
                             CommandParameter="{Binding SelectedCompany}"/>
                     </StackPanel>
                 </UniformGrid>
@@ -95,6 +97,8 @@
                             CommandParameter="{Binding SelectedCompany}"/>
                     <Button Content="Изменить" Margin="8,3" Background="Blue" Foreground="White" Command="{Binding EditWorkerCommand}" 
                             CommandParameter="{Binding SelectedWorker}"/>
+                    <Button Content="Удалить" Margin="8,3" Background="Red" Foreground="White" Command="{Binding RemoveWorkerCommand}" 
+                            CommandParameter="{Binding SelectedWorker}"/>
                 </UniformGrid>
                 <ListBox ItemsSource="{Binding SelectedCompany.Workers}" SelectedItem="{Binding SelectedWorker}">
                     <ListBox.ItemContainerStyle>
@@ -117,7 +121,7 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="300"/>
-                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                     <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
@@ -132,7 +136,7 @@
 
                 <Grid Grid.Row="1">
                     <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" >
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                             <TextBlock Text="Основное начисление по окладу = " Margin="20,0,0,10"/>
                             <TextBlock Text="{Binding MainResultSalary}"/>
                         </StackPanel>
@@ -234,20 +238,20 @@
                     <Grid Grid.Column="0">
                         <DockPanel>
 
-                            <StackPanel DockPanel.Dock="Top">
+                            <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
                                 <TextBlock Text="Начисление по доп. объему(совмещение) = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
-                                <TextBlock Text="{Binding SummAdditionalProfessions}"/>
+                                <TextBlock Text="{Binding SummAdditionalProfessions}" Margin="0,11,0,10"/>
                             </StackPanel>
 
-                            <ListBox ItemsSource="{Binding AdditionalProfessions}"/>
+                            
 
                         </DockPanel>
                     </Grid>
                     <Grid Grid.Column="1">
                         <DockPanel>
-                            <StackPanel DockPanel.Dock="Top">
+                            <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
                                 <TextBlock Text="Удержания = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
-                                <TextBlock Text="{Binding SummPenalties}"/>
+                                <TextBlock Text="{Binding SummPenalties}"  Margin="0,11,0,10"/>
                             </StackPanel>
                             
                             <ListBox ItemsSource="{Binding Penalties}"/>
@@ -257,11 +261,11 @@
 
                 <Grid Grid.Row="3">
                     <StackPanel>
-                        <StackPanel>
+                        <StackPanel  Orientation="Horizontal">
                             <TextBlock Text="Итого заработано = " Margin="20,0,0,0"/>
                             <TextBlock Text="{Binding FinalResultSalary}"/>
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel  Orientation="Horizontal">
                             <TextBlock Text="Сумма промежуточных выплат за месяц ="  Margin="20,0,0,0"/>
                             <TextBlock Text="{Binding SummPay}"/>
                         </StackPanel>
@@ -319,17 +323,22 @@
 
                 <Grid Grid.Row="5">
 
-                    <StackPanel>
+                    <StackPanel  Orientation="Horizontal">
                         <TextBlock Text="Итого к выплате = " VerticalAlignment="Center" Margin="20,0,0,0"/>
-                        <TextBlock Text="{Binding ResultSalary}"/>
+                        <TextBlock Text="{Binding ResultSalary}"  Margin="0, 32"/>
                     </StackPanel>
 
                 </Grid>
             </Grid>
         </GroupBox>
         <Grid Grid.Row="2" Grid.Column="3">
-            <Button Content="Добавить доп должность" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateAdditionalProfessionCommand}"
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Добавить доп должность" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateAdditionalProfessionCommand}"
                             CommandParameter="{Binding SelectedWorker}"/>
+                <Button Content="Добавить штраф" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreatePenaltieCommand}"
+                            CommandParameter="{Binding SelectedWorker}"/>
+                <ListBox ItemsSource="{Binding SelectedWorker.AdditionalProfessions}" Width="300"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

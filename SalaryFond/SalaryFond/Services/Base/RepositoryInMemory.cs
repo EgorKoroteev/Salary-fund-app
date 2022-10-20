@@ -34,7 +34,7 @@ namespace SalaryFond.Services.Base
             _Entities.Add(entity);
         }
 
-        public T GetOne() => _Entities[0];
+        public T GetOne(int i) => _Entities[i];
 
         public ObservableCollection<T> GetAll() => _Entities;
 

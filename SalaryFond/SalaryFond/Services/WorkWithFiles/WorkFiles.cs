@@ -12,15 +12,15 @@ namespace SalaryFond.Services.WorkWithFiles
 {
     class WorkFiles
     {
-        public ObservableCollection<Company> ReadJsonBD()
+        public ObservableCollection<Month> ReadJsonBD()
         {
-            ObservableCollection<Company> company = File.Exists("DataBase.json") ? JsonConvert.DeserializeObject<ObservableCollection<Company>>(File.ReadAllText("DataBase.json")) : null;
-            return company;
+            ObservableCollection<Month> months = File.Exists("DataBase.json") ? JsonConvert.DeserializeObject<ObservableCollection<Month>>(File.ReadAllText("DataBase.json")) : null;
+            return months;
         }
 
-        public void WriteJsonBD(IEnumerable<Company> companies)
+        public void WriteJsonBD(IEnumerable<Month> months)
         {
-            File.WriteAllText("DataBase.json", JsonConvert.SerializeObject(companies));
+            File.WriteAllText("DataBase.json", JsonConvert.SerializeObject(months));
         }
     }
 }

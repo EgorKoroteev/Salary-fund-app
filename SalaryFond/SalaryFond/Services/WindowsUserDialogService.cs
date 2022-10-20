@@ -27,6 +27,9 @@ namespace SalaryFond.Services
                 case AdditionalProfession additionalProfession:
                     return EditAdditionalProfession(additionalProfession);
 
+                case Penalties penaltie:
+                    return EditPenaltie(penaltie);
+
                 default: throw new NotSupportedException($"Редактирование объекта типа {item.GetType().Name} не поддерживается");
             }
         }
@@ -123,6 +126,26 @@ namespace SalaryFond.Services
             additionalProfession.WorkedHours = dlg.WorkedHours;
 
             additionalProfession.SummResultSalary();
+
+            return true;
+        }
+
+        private static bool EditPenaltie(Penalties penaltie)
+        {
+            var dlg = new PenaltieEditorWindow()
+            {
+                Name = penaltie.Name,
+                Type = penaltie.Type,
+                Sum = penaltie.Summ,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            if (dlg.ShowDialog() != true) return false;
+
+            penaltie.Name = dlg.Name;
+            penaltie.Type = dlg.Type;
+            penaltie.Summ = dlg.Sum;
 
             return true;
         }
