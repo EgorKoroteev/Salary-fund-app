@@ -61,3 +61,7 @@ Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFon
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\AdditionalProfessionEditorWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\CompanyEditorWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\ResultCompaniesWindow.baml
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Release\net6.0-windows\EPPlus.dll
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Release\net6.0-windows\System.Xml.XPath.XmlDocument.dll
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\PenaltieEditorWindow.g.cs
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\PenaltieEditorWindow.baml

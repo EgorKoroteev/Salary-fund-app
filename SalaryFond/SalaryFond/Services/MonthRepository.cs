@@ -28,5 +28,10 @@ namespace SalaryFond.Services
                 End.Companies.Add(Source.Companies[i]);
             }
         }
+
+        public void MonthRemoveAll()
+        {
+
+        }
     }
 }

@@ -2,10 +2,6 @@
 using SalaryFond.Services.Interfaces;
 using SalaryFond.Views.Windows;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SalaryFond.Services
@@ -82,6 +78,7 @@ namespace SalaryFond.Services
             worker.TransferByCard = dlg.TransferByCard;
 
             worker.SumResultSalary();
+            worker.CalculateAdditionalAndPenaltie();
 
             return true;
         }
@@ -134,7 +131,7 @@ namespace SalaryFond.Services
         {
             var dlg = new PenaltieEditorWindow()
             {
-                Name = penaltie.Name,
+                NamePenaltie = penaltie.Name,
                 Type = penaltie.Type,
                 Sum = penaltie.Summ,
                 Owner = Application.Current.MainWindow,
@@ -143,7 +140,7 @@ namespace SalaryFond.Services
 
             if (dlg.ShowDialog() != true) return false;
 
-            penaltie.Name = dlg.Name;
+            penaltie.Name = dlg.NamePenaltie;
             penaltie.Type = dlg.Type;
             penaltie.Summ = dlg.Sum;
 

@@ -25,6 +25,16 @@ namespace SalaryFond.Services
             _Months = Month;
         }
 
+        public void UpdateInformation()
+        {
+            for (int i = 0; i < _Companies.GetCount(); i++)
+            {
+                _Companies.GetOne(i).CalculateSalaryFond();
+                _Companies.GetOne(i).CalculateNormalHours();
+                _Companies.GetOne(i).CalculateWorkedHours();
+            }
+        }
+
         public bool Create(Worker Worker, string CompanyName)
         {
             if (Worker is null) throw new ArgumentNullException(nameof(Worker));
@@ -39,6 +49,9 @@ namespace SalaryFond.Services
 
             company.Workers.Add(Worker);
             Worker.SumResultSalary();
+            company.CalculateSalaryFond();
+            company.CalculateNormalHours();
+            company.CalculateWorkedHours();
             _Workers.Add(Worker);
             return true;
         }
@@ -52,7 +65,10 @@ namespace SalaryFond.Services
             if (worker is null) return false;
 
             AdditionalProfession.SummResultSalary();
+            
             worker.AdditionalProfessions.Add(AdditionalProfession);
+            worker.CalculateAdditionalAndPenaltie();
+            worker.SumResultSalary();
             return true;
         }
 
@@ -64,7 +80,10 @@ namespace SalaryFond.Services
             var worker = _Workers.Get(WorkerFIO);
             if (worker is null) return false;
 
+            
             worker.Penalties.Add(Penaltie);
+            worker.CalculateAdditionalAndPenaltie();
+            worker.SumResultSalary();
             return true;
         }
 
@@ -91,6 +110,17 @@ namespace SalaryFond.Services
 
         public void SetCompaniesFromBD(ObservableCollection<Month> months)
         {
+            for (int i = 0; i < _Months.GetCount(); i++)
+            {
+                for (int j = 0; j < _Months.GetOne(i).Companies.Count; j++)
+                {
+                    _Months.GetOne(i).Companies.Clear();
+                }
+            }
+
+            _Workers.RemoveAll();
+            _Companies.RemoveAll();
+
             for (int i = 0; i < months.Count; i++)
             {
                 if (months[i].Companies.Count > 0)
@@ -111,6 +141,11 @@ namespace SalaryFond.Services
                     }
                 }
             }
+        }
+
+        public void UpdateRepository()
+        {
+
         }
     }
 }

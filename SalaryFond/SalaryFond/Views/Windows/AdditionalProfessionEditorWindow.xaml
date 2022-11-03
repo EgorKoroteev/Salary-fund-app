@@ -26,21 +26,21 @@
         <Grid Grid.Row="1">
             <StackPanel>
                 <TextBlock Text="Оклад"/>
-                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainSalary}"/>
+                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainSalary}" PreviewTextInput="TextBox_PreviewTextInput"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="2">
             <StackPanel>
                 <TextBlock Text="Часы(норма)"/>
-                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NormalHours}"/>
+                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NormalHours}" PreviewTextInput="TextBox_PreviewTextInput_1"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="3">
             <StackPanel>
                 <TextBlock Text="Часы(отработанные)"/>
-                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}"/>
+                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}" PreviewTextInput="TextBox_PreviewTextInput_2"/>
             </StackPanel>
         </Grid>
 

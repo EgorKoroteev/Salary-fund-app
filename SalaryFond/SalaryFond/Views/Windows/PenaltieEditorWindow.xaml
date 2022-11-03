@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SalaryFond.Views.Windows"
         mc:Ignorable="d"
         xmlns:c="clr-namespace:SalaryFond.Infrastructure.Commads"
-        Title="PenaltieEditorWindow" MinHeight="300" MinWidth="300"
+        Title="PenaltieEditorWindow" Height="300" Width="300"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +19,7 @@
         <Grid Grid.Row="0">
             <StackPanel>
                 <TextBlock Text="Название"/>
-                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding Name}"/>
+                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NamePenaltie}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
@@ -37,7 +37,7 @@
         <Grid Grid.Row="2">
             <StackPanel>
                 <TextBlock Text="Сумма"/>
-                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding Sum}"/>
+                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding Sum}" PreviewTextInput="TextBox_PreviewTextInput"/>
             </StackPanel>
         </Grid>
 

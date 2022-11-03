@@ -32,7 +32,7 @@
         <Grid Grid.Row="2">
             <StackPanel>
                 <TextBlock Text="Плановый зарплатный фонд"/>
-                <TextBox Name="CasePlanningSalaryFound" Width="180" HorizontalAlignment="Left" Text="{Binding PlanningSalaryFund}"/>
+                <TextBox Name="CasePlanningSalaryFound" Width="180" HorizontalAlignment="Left" Text="{Binding PlanningSalaryFund}" PreviewTextInput="CasePlanningSalaryFound_PreviewTextInput"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3">

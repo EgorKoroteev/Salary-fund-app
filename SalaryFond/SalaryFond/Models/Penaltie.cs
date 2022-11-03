@@ -31,5 +31,7 @@ namespace SalaryFond.Models
             get { return _Summ; }
             set { _Summ = value; }
         }
+
+        public Penalties() { }
     }
 }

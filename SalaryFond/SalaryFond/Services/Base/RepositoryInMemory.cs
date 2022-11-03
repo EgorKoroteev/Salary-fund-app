@@ -40,6 +40,11 @@ namespace SalaryFond.Services.Base
 
         public bool Remove(T entity) => _Entities.Remove(entity);
 
+        public void RemoveAll()
+        {
+            _Entities.Clear();
+        }
+
         public void Update(int id, T entity)
         {
             if (entity is null) throw new ArgumentException(nameof(entity));
@@ -57,5 +62,7 @@ namespace SalaryFond.Services.Base
         }
 
         protected abstract void Update(T Source, T End);
+
+        public int GetCount() => _Entities.Count;
     }
 }

@@ -11,7 +11,7 @@
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
@@ -27,6 +27,7 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Загрузить базу данных" Command="{Binding ImportBDCommand}"/>
                 <MenuItem Header="Выгрузить базу данных" Command="{Binding ExportBDCommand}"/>
+                <MenuItem Header="Выгрузить Excel" Command="{Binding ExportExcelCommand}"/>
             </MenuItem>
             <MenuItem Header="Результат">
                 <MenuItem.Command>
@@ -37,11 +38,7 @@
         
         <GroupBox Grid.Column="0" Grid.Row="1" Header="Месяца">
             <DockPanel>
-                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="70" >
-                    <StackPanel>
-                        <Button Padding="5" Content="Пока не придумал" Margin="8,3" Background="Red" Foreground="White"/>
-                    </StackPanel>
-                </UniformGrid>
+
                 <ListBox ItemsSource="{Binding Months}" SelectedItem="{Binding SelectedMonth}" SelectedIndex="0">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -115,230 +112,254 @@
             </DockPanel>
         </GroupBox>
 
-        <GroupBox Grid.Column="3" Grid.Row="1" Header="Карточка сотрудника" DataContext="{Binding SelectedWorker}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="300"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="80"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="3" Grid.Row="1">
+            <DockPanel>
+                <GroupBox DockPanel.Dock="Top" Header="Карточка сотрудника" DataContext="{Binding SelectedWorker}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="300"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding FIO}" Margin="20,10,20,0"/>
-                        <TextBlock Text="Основаная должность : " Margin="0,10,0,0"/>
-                        <TextBlock Text="{Binding MainProfession}" Margin="0,10,0,0"/>
-                    </StackPanel>
-                </Grid>
+                        <Grid Grid.Row="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding FIO}" Margin="20,10,20,0"/>
+                                <TextBlock Text="Основаная должность : " Margin="0,10,0,0"/>
+                                <TextBlock Text="{Binding MainProfession}" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Grid>
 
-                <Grid Grid.Row="1">
-                    <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                            <TextBlock Text="Основное начисление по окладу = " Margin="20,0,0,10"/>
-                            <TextBlock Text="{Binding MainResultSalary}"/>
-                        </StackPanel>
-                        
+                        <Grid Grid.Row="1">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                    <TextBlock Text="Основное начисление по окладу = " Margin="20,0,0,10"/>
+                                    <TextBlock Text="{Binding MainResultSalary}"/>
+                                </StackPanel>
 
-                        <Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="92"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="82"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0" Margin="20,0,0,0">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Оклад"/>
+                                                <TextBlock Text="{Binding MainSalary}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Часы(норма)"/>
+                                                <TextBlock Text="{Binding NormalHours}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="2">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Часы(отработанные)"/>
+                                                <TextBlock Text="{Binding WorkedHours}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="3">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Ставка руб/час"/>
+                                                <TextBlock Text="{Binding RateRUB}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="4">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Премия 10%"/>
+                                                <TextBlock Text="{Binding Prize}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="5">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Премия руководителя"/>
+                                                <TextBlock Text="{Binding PrizeBoss}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="6">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Больничные"/>
+                                                <TextBlock Text="{Binding SickPay}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Column="7">
+                                        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="Отпускные"/>
+                                                <TextBlock Text="{Binding HolidayPay}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </DockPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="92"/>
-                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="82"/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0" Margin="20,0,0,0">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Оклад"/>
-                                        <TextBlock Text="{Binding MainSalary}"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
+                            <Grid Grid.Column="0">
+                                <DockPanel>
 
+                                    <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
+                                        <TextBlock Text="Начисление по доп. объему(совмещение) = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
+                                        <TextBlock Text="{Binding SummAdditionalProfessions}" Margin="0,11,0,10"/>
+                                    </StackPanel>
+
+                                    <DataGrid ItemsSource="{Binding AdditionalProfessions}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Название" Binding="{Binding Name}"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Часы(отработанные)" Binding="{Binding WorkedHours}"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Зарплата" Binding="{Binding ResultSalary}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+
+
+                                </DockPanel>
+                            </Grid>
                             <Grid Grid.Column="1">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Часы(норма)"/>
-                                        <TextBlock Text="{Binding NormalHours}"/>
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
+                                        <TextBlock Text="Удержания = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
+                                        <TextBlock Text="{Binding SummPenalties}"  Margin="0,11,0,10"/>
                                     </StackPanel>
-                                </Border>
-                            </Grid>
 
-                            <Grid Grid.Column="2">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Часы(отработанные)"/>
-                                        <TextBlock Text="{Binding WorkedHours}"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
+                                    <DataGrid ItemsSource="{Binding Penalties}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                                            <DataGridTextColumn Header="Тип" Binding="{Binding Type}"/>
+                                            <DataGridTextColumn Header="Сумма" Binding="{Binding Summ}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
 
-                            <Grid Grid.Column="3">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Ставка руб/час"/>
-                                        <TextBlock Text="{Binding RateRUB}"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-
-                            <Grid Grid.Column="4">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Премия 10%"/>
-                                        <TextBlock Text="{Binding Prize}"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-
-                            <Grid Grid.Column="5">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Премия руководителя"/>
-                                        <TextBlock Text="{Binding PrizeBoss}"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-
-                            <Grid Grid.Column="6">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Больничные"/>
-                                        <TextBlock Text="{Binding SickPay}"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-
-                            <Grid Grid.Column="7">
-                                <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="Отпускные"/>
-                                        <TextBlock Text="{Binding HolidayPay}"/>
-                                    </StackPanel>
-                                </Border>
+                                </DockPanel>
                             </Grid>
                         </Grid>
-                    </DockPanel>
-                </Grid>
 
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="3">
+                            <StackPanel>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="Итого начислено = " Margin="20,0,0,0"/>
+                                    <TextBlock Text="{Binding FinalResultSalary}"/>
+                                </StackPanel>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="Сумма промежуточных выплат за месяц ="  Margin="20,0,0,0"/>
+                                    <TextBlock Text="{Binding SummPay}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
 
-                    <Grid Grid.Column="0">
-                        <DockPanel>
+                        <Grid Grid.Row="4">
 
-                            <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
-                                <TextBlock Text="Начисление по доп. объему(совмещение) = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
-                                <TextBlock Text="{Binding SummAdditionalProfessions}" Margin="0,11,0,10"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" Margin="20,0,0,0">
+                                    <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                        <StackPanel HorizontalAlignment="Center">
+                                            <TextBlock Text="Аванс"/>
+                                            <TextBlock Text="{Binding Prepayment}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Grid.Column="1">
+                                    <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                        <StackPanel HorizontalAlignment="Center">
+                                            <TextBlock Text="РКО"/>
+                                            <TextBlock Text="{Binding RKO}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Grid.Column="2">
+                                    <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                        <StackPanel HorizontalAlignment="Center">
+                                            <TextBlock Text="Исп. лист"/>
+                                            <TextBlock Text="{Binding ExecutiveList}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Grid.Column="3" Margin="0,0,20,0">
+                                    <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                        <StackPanel HorizontalAlignment="Center">
+                                            <TextBlock Text="Перечислено р/с"/>
+                                            <TextBlock Text="{Binding TransferByCard}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+
+                            <StackPanel  Orientation="Horizontal">
+                                <TextBlock Text="Итого к выплате = " VerticalAlignment="Center" Margin="20,0,0,0"/>
+                                <TextBlock Text="{Binding ResultSalary}"  Margin="0, 32"/>
                             </StackPanel>
 
-                            
+                        </Grid>
 
-                        </DockPanel>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <DockPanel>
-                            <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
-                                <TextBlock Text="Удержания = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
-                                <TextBlock Text="{Binding SummPenalties}"  Margin="0,11,0,10"/>
-                            </StackPanel>
-                            
-                            <ListBox ItemsSource="{Binding Penalties}"/>
-                        </DockPanel>
-                    </Grid>
-                </Grid>
 
-                <Grid Grid.Row="3">
-                    <StackPanel>
-                        <StackPanel  Orientation="Horizontal">
-                            <TextBlock Text="Итого заработано = " Margin="20,0,0,0"/>
-                            <TextBlock Text="{Binding FinalResultSalary}"/>
-                        </StackPanel>
-                        <StackPanel  Orientation="Horizontal">
-                            <TextBlock Text="Сумма промежуточных выплат за месяц ="  Margin="20,0,0,0"/>
-                            <TextBlock Text="{Binding SummPay}"/>
-                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+                <Grid DockPanel.Dock="Bottom">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Height="30" Content="Добавить доп должность" Margin="10, 8, 16, 0" Background="Green" Foreground="White" Command="{Binding CreateAdditionalProfessionCommand}"
+                            CommandParameter="{Binding SelectedWorker}" />
+                        <Button Height="30" Content="Добавить штраф" Margin="0, 8, 0, 0" Background="Green" Foreground="White" Command="{Binding CreatePenaltieCommand}"
+                            CommandParameter="{Binding SelectedWorker}"/>
                     </StackPanel>
                 </Grid>
-
-                <Grid Grid.Row="4">
-                    
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0" Margin="20,0,0,0">
-                            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                <StackPanel HorizontalAlignment="Center">
-                                    <TextBlock Text="Аванс"/>
-                                    <TextBlock Text="{Binding Prepayment}"/>
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-
-                        <Grid Grid.Column="1">
-                            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                <StackPanel HorizontalAlignment="Center">
-                                    <TextBlock Text="РКО"/>
-                                    <TextBlock Text="{Binding RKO}"/>
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-
-                        <Grid Grid.Column="2">
-                            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                <StackPanel HorizontalAlignment="Center">
-                                    <TextBlock Text="Исп. лист"/>
-                                    <TextBlock Text="{Binding ExecutiveList}"/>
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-
-                        <Grid Grid.Column="3" Margin="0,0,20,0">
-                            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                                <StackPanel HorizontalAlignment="Center">
-                                    <TextBlock Text="Перечислено р/с"/>
-                                    <TextBlock Text="{Binding TransferByCard}"/>
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-                    </Grid>
-                </Grid>
-
-                <Grid Grid.Row="5">
-
-                    <StackPanel  Orientation="Horizontal">
-                        <TextBlock Text="Итого к выплате = " VerticalAlignment="Center" Margin="20,0,0,0"/>
-                        <TextBlock Text="{Binding ResultSalary}"  Margin="0, 32"/>
-                    </StackPanel>
-
-                </Grid>
-            </Grid>
-        </GroupBox>
-        <Grid Grid.Row="2" Grid.Column="3">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Добавить доп должность" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreateAdditionalProfessionCommand}"
-                            CommandParameter="{Binding SelectedWorker}"/>
-                <Button Content="Добавить штраф" Margin="8,3" Background="Green" Foreground="White" Command="{Binding CreatePenaltieCommand}"
-                            CommandParameter="{Binding SelectedWorker}"/>
-                <ListBox ItemsSource="{Binding SelectedWorker.AdditionalProfessions}" Width="300"/>
-            </StackPanel>
+            </DockPanel>
+            
         </Grid>
+        <DockPanel Grid.Row="2" Grid.Column="3">
+            <Button HorizontalAlignment="Right" Height="30" Width="160" Content="Обновить информацию" Margin="0,0,10,0" Background="CadetBlue" Foreground="Wheat"/>
+        </DockPanel>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace SalaryFond.Views.Windows
 {
@@ -6,13 +7,13 @@ namespace SalaryFond.Views.Windows
     {
         #region Название
 
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register(nameof(Name),
+        public static readonly DependencyProperty NamePenaltieProperty =
+            DependencyProperty.Register(nameof(NamePenaltie),
                 typeof(string),
-                typeof(AdditionalProfessionEditorWindow),
+                typeof(PenaltieEditorWindow),
                 new PropertyMetadata(default(string)));
 
-        public string Name { get => (string)GetValue(NameProperty); set => SetValue(NameProperty, value); }
+        public string NamePenaltie { get => (string)GetValue(NamePenaltieProperty); set => SetValue(NamePenaltieProperty, value); }
 
         #endregion
 
@@ -21,7 +22,7 @@ namespace SalaryFond.Views.Windows
         public static readonly DependencyProperty TypeProperty =
             DependencyProperty.Register(nameof(Type),
                 typeof(string),
-                typeof(AdditionalProfessionEditorWindow),
+                typeof(PenaltieEditorWindow),
                 new PropertyMetadata(default(string)));
 
         public string Type { get => (string)GetValue(TypeProperty); set => SetValue(TypeProperty, value); }
@@ -33,7 +34,7 @@ namespace SalaryFond.Views.Windows
         public static readonly DependencyProperty SumProperty =
             DependencyProperty.Register(nameof(Sum),
                 typeof(int),
-                typeof(AdditionalProfessionEditorWindow),
+                typeof(PenaltieEditorWindow),
                 new PropertyMetadata(default(int)));
 
         public int Sum { get => (int)GetValue(SumProperty); set => SetValue(SumProperty, value); }
@@ -42,6 +43,14 @@ namespace SalaryFond.Views.Windows
         public PenaltieEditorWindow()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

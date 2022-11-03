@@ -51,11 +51,11 @@ namespace SalaryFond.Views.Windows
 
         public static readonly DependencyProperty NormalHoursProperty =
             DependencyProperty.Register(nameof(NormalHours),
-                typeof(float),
+                typeof(int),
                 typeof(WorkerEditorWindow),
-                new PropertyMetadata(default(float)));
+                new PropertyMetadata(default(int)));
 
-        public float NormalHours { get => (float)GetValue(NormalHoursProperty); set => SetValue(NormalHoursProperty, value); }
+        public int NormalHours { get => (int)GetValue(NormalHoursProperty); set => SetValue(NormalHoursProperty, value); }
 
         #endregion
 
@@ -172,6 +172,86 @@ namespace SalaryFond.Views.Windows
         public WorkerEditorWindow()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_1(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_2(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_3(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_4(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_5(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_6(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_7(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_8(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput_9(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

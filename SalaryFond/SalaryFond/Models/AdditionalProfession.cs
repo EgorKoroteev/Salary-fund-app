@@ -64,5 +64,7 @@ namespace SalaryFond.Models
                 ResultSalary = WorkedHours * (MainSalary / NormalHours);
             }
         }
+
+        public AdditionalProfession() { }
     }
 }

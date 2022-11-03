@@ -55,5 +55,13 @@ namespace SalaryFond.Views.Windows
         {
             InitializeComponent();
         }
+
+        private void CasePlanningSalaryFound_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

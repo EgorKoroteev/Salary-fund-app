@@ -42,37 +42,37 @@
                     <GroupBox Header="Начисления" Grid.Row="2"  BorderBrush="Black">
                         <StackPanel>
                             <TextBlock Text="Оклад"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainSalary}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainSalary}" PreviewTextInput="TextBox_PreviewTextInput"/>
 
                             <TextBlock Text="Норма часов"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NormalHours}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NormalHours}" PreviewTextInput="TextBox_PreviewTextInput_1"/>
 
                             <TextBlock Text="Отработанные часы"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}" PreviewTextInput="TextBox_PreviewTextInput_2"/>
 
                             <TextBlock Text="Премия руководителя"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding PrizeBoss}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding PrizeBoss}" PreviewTextInput="TextBox_PreviewTextInput_3"/>
 
                             <TextBlock Text="Отпусктные"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding HolidayPay}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding HolidayPay}" PreviewTextInput="TextBox_PreviewTextInput_4"/>
                             <TextBlock Text="Больничные"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding SickPay}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding SickPay}" PreviewTextInput="TextBox_PreviewTextInput_5"/>
                         </StackPanel>
                     </GroupBox>
 
                     <GroupBox Header="Выплаты" Grid.Row="3" BorderBrush="Black">
                         <StackPanel>
                             <TextBlock Text="Аванс"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding Prepayment}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding Prepayment}" PreviewTextInput="TextBox_PreviewTextInput_6"/>
 
                             <TextBlock Text="РКО"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding RKO}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding RKO}" PreviewTextInput="TextBox_PreviewTextInput_7"/>
 
                             <TextBlock Text="Исп. лист"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding ExecutiveList}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding ExecutiveList}" PreviewTextInput="TextBox_PreviewTextInput_8"/>
 
                             <TextBlock Text="Перечисленно р/с"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding TransferByCard}"/>
+                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding TransferByCard}" PreviewTextInput="TextBox_PreviewTextInput_9"/>
                         </StackPanel>
                     </GroupBox>
                 </Grid>

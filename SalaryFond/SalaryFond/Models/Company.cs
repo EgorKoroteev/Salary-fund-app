@@ -62,7 +62,35 @@ namespace SalaryFond.Models
 
         public ObservableCollection<Worker> Workers { get; set; } = new ObservableCollection<Worker>();
 
-        //public List<Worker> Workers = new List<Worker>();
+        public void CalculateSalaryFond()
+        {
+            FactSalaryFund = 0;
+
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                FactSalaryFund += Workers[i].FinalResultSalary;
+            }
+        }
+
+        public void CalculateNormalHours()
+        {
+            NormalHours = 0;
+
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                NormalHours += Workers[i].NormalHours;
+            }
+        }
+
+        public void CalculateWorkedHours()
+        {
+            WorkedHours = 0;
+
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                WorkedHours += Workers[i].WorkedHours;
+            }
+        }
     }
 }
 

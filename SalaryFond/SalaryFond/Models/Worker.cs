@@ -35,9 +35,9 @@ namespace SalaryFond.Models
             set { _MainSalary = value; }
         }
 
-        private float _NormalHours;
+        private int _NormalHours;
 
-        public float NormalHours
+        public int NormalHours
         {
             get { return _NormalHours; }
             set { _NormalHours = value; }
@@ -183,23 +183,37 @@ namespace SalaryFond.Models
         }
 
         // Можно вводить
-        public ObservableCollection<AdditionalProfession> AdditionalProfessions = new ObservableCollection<AdditionalProfession>();
+        public ObservableCollection<AdditionalProfession> AdditionalProfessions { get; set; } = new ObservableCollection<AdditionalProfession>();
 
         // Можно вводить
-        public ObservableCollection<Penalties> Penalties = new ObservableCollection<Penalties>();
+        public ObservableCollection<Penalties> Penalties { get; set; } = new ObservableCollection<Penalties>();
 
         // Можно вводить
-        public ObservableCollection<WorkedDay> WorkedDays = new ObservableCollection<WorkedDay>();
+        public ObservableCollection<WorkedDay> WorkedDays { get; set; } = new ObservableCollection<WorkedDay>();
 
 
         public void SumResultSalary()
         {
+            if (Penalties.Count <= 0)
+            {
+                Prize = Convert.ToInt32(MainSalary / 10);
+            }
+
             if (MainSalary > 0 && NormalHours > 0)
             {
                 RateRUB = MainSalary / NormalHours;
                 MainResultSalary = Convert.ToInt32(WorkedHours * (MainSalary / NormalHours) + PrizeBoss + HolidayPay + SickPay);
             }
-            
+
+            if (Penalties.Count <= 0 && Prize > 0)
+            {
+                MainResultSalary += Prize;
+            }
+            else if (Penalties.Count > 0 && Prize > 0)
+            {
+                MainResultSalary -= Prize;
+                Prize = 0;
+            }
 
             FinalResultSalary = MainResultSalary;
 
@@ -207,7 +221,7 @@ namespace SalaryFond.Models
             {
                 for (int i = 0; i < AdditionalProfessions.Count; i++)
                 {
-                    FinalResultSalary += AdditionalProfessions[i].MainSalary;
+                    FinalResultSalary += AdditionalProfessions[i].ResultSalary;
                 }
             }
 
@@ -219,24 +233,16 @@ namespace SalaryFond.Models
                 }
             }
 
-            if (Penalties.Count <= 0)
-            {
-                Prize = 1000;
-            }
-
-
-            if (Penalties.Count <= 0 && Prize == 0)
-            {
-                FinalResultSalary += Prize;
-            }
-            else if (Penalties.Count > 0 && Prize > 0)
-            {
-                FinalResultSalary -= Prize;
-            }
-
             SummPay = Prepayment + TransferByCard + RKO + ExecutiveList;
 
-            ResultSalary = FinalResultSalary - Prepayment - TransferByCard - RKO - ExecutiveList;
+            ResultSalary = FinalResultSalary - SummPay;
+        }
+
+        public void CalculateAdditionalAndPenaltie()
+        {
+            SummAdditionalProfessions = 0;
+
+            SummPenalties = 0;
 
             if (AdditionalProfessions.Count > 0)
             {

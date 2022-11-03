@@ -69,6 +69,7 @@ namespace SalaryFond.ViewModels
                 var selectCompany = SelectedCompany;
                 SelectedCompany = null;
                 SelectedCompany = selectCompany;
+                _WorkersManager.UpdateInformation();
                 _UserDialog.ShowInformation("Сотрудник отредактирован", "Медеджер сотрудников");
             }
             else
@@ -140,6 +141,9 @@ namespace SalaryFond.ViewModels
 
             if (!_UserDialog.Edit(additional) || _WorkersManager.CreateAdditionalProfession(additional, worker.FIO))
             {
+                var selectCompany = SelectedCompany;
+                SelectedCompany = null;
+                SelectedCompany = selectCompany;
                 OnPropertyChanged(nameof(Workers));
                 return;
             }
@@ -168,6 +172,9 @@ namespace SalaryFond.ViewModels
 
             if (!_UserDialog.Edit(penaltie) || _WorkersManager.CreatePenaltie(penaltie, worker.FIO))
             {
+                var selectCompany = SelectedCompany;
+                SelectedCompany = null;
+                SelectedCompany = selectCompany;
                 OnPropertyChanged(nameof(Workers));
                 return;
             }
@@ -281,6 +288,36 @@ namespace SalaryFond.ViewModels
         {
             var months = _WorkFiles.ReadJsonBD();
             _WorkersManager.SetCompaniesFromBD(months);
+        }
+
+        #endregion
+
+        #region Команда для выгрузги Excel
+
+        private ICommand _ExportExcelCommand;
+
+        public ICommand ExportExcelCommand => _ExportExcelCommand ??= new LambdaCommand(OnExportExcelCommandExecuted, CanExportExcelCommandExecute);
+
+        private static bool CanExportExcelCommandExecute(object p) => true;
+
+        private void OnExportExcelCommandExecuted(object p)
+        {
+            _WorkFiles.WriteExcel(_WorkersManager.Companies);
+        }
+
+        #endregion
+
+        #region Команда для обновления всей информации
+
+        private ICommand _UpdateCommand;
+
+        public ICommand UpdateCommand => _UpdateCommand ??= new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
+
+        private static bool CanUpdateCommandExecute(object p) => true;
+
+        private void OnUpdateCommandExecuted(object p)
+        {
+            // Пересчет всех методов связанных с зарплатой
         }
 
         #endregion
