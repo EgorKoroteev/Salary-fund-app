@@ -1,12 +1,7 @@
 ﻿using SalaryFond.Infrastructure.Commads.Base;
 using SalaryFond.Views.Windows;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SalaryFond.Infrastructure.Commads
 {
@@ -20,14 +15,14 @@ namespace SalaryFond.Infrastructure.Commads
         {
             var window = new ResultCompaniesWindow
             {
-                Owner = System.Windows.Application.Current.MainWindow,
+                
             };
 
             _window = window;
 
             window.Closed += OnWindowClosed;
 
-            window.ShowDialog();
+            window.Show();
         }
 
         private void OnWindowClosed(object sender, EventArgs e)

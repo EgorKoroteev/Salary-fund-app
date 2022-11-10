@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SalaryFond.Models
 {
-    internal class AdditionalProfession
+    public class AdditionalProfession
     {
         private string _Name;
 

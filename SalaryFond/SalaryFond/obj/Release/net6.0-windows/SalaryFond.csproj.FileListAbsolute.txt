@@ -33,7 +33,6 @@ Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFon
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Release\net6.0-windows\Newtonsoft.Json.dll
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Release\net6.0-windows\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\SalaryFond.csproj.AssemblyReference.cache
-Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\AddCompanyWindow.g.cs
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\MainWindow.g.cs
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\WorkerEditorWindow.g.cs
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\App.g.cs
@@ -41,7 +40,6 @@ Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFon
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\SalaryFond_MarkupCompile.cache
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\SalaryFond_MarkupCompile.lref
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\App.baml
-Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\AddCompanyWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\MainWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\Views\Windows\WorkerEditorWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Release\net6.0-windows\SalaryFond.g.resources

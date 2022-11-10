@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SalaryFond.Views.Windows"
         xmlns:c="clr-namespace:SalaryFond.Infrastructure.Commads"
         mc:Ignorable="d"
-        Title="Редактирование сортрудника" Height="550" Width="500"
+        Title="Редактирование сортрудника" Height="650" Width="500"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -39,26 +39,67 @@
                             <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainProfession}"/>
                         </StackPanel>
                     </Grid>
-                    <GroupBox Header="Начисления" Grid.Row="2"  BorderBrush="Black">
-                        <StackPanel>
-                            <TextBlock Text="Оклад"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainSalary}" PreviewTextInput="TextBox_PreviewTextInput"/>
 
-                            <TextBlock Text="Норма часов"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NormalHours}" PreviewTextInput="TextBox_PreviewTextInput_1"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Header="Начисления" Grid.Column="0" BorderBrush="Black">
+                            <StackPanel>
+                                <TextBlock Text="Оклад"/>
+                                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainSalary}" PreviewTextInput="TextBox_PreviewTextInput"/>
 
-                            <TextBlock Text="Отработанные часы"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}" PreviewTextInput="TextBox_PreviewTextInput_2"/>
+                                <TextBlock Text="Норма часов"/>
+                                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NormalHours}" PreviewTextInput="TextBox_PreviewTextInput_1"/>
 
-                            <TextBlock Text="Премия руководителя"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding PrizeBoss}" PreviewTextInput="TextBox_PreviewTextInput_3"/>
+                                <TextBlock Text="Отработанные часы"/>
+                                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}" PreviewTextInput="TextBox_PreviewTextInput_2"/>
 
-                            <TextBlock Text="Отпусктные"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding HolidayPay}" PreviewTextInput="TextBox_PreviewTextInput_4"/>
-                            <TextBlock Text="Больничные"/>
-                            <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding SickPay}" PreviewTextInput="TextBox_PreviewTextInput_5"/>
+                                <TextBlock Text="Премия руководителя"/>
+                                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding PrizeBoss}" PreviewTextInput="TextBox_PreviewTextInput_3"/>
+
+                                <TextBlock Text="Отпусктные"/>
+                                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding HolidayPay}" PreviewTextInput="TextBox_PreviewTextInput_4"/>
+                                <TextBlock Text="Больничные"/>
+                                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding SickPay}" PreviewTextInput="TextBox_PreviewTextInput_5"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <StackPanel Grid.Column="1">
+                            <Grid>
+                                <StackPanel>
+                                    <DataGrid ItemsSource="{Binding AdditionalProfessions}" AutoGenerateColumns="False" CanUserAddRows="False" Height="130">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Название" Binding="{Binding Name}"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Часы(отработанные)" Binding="{Binding WorkedHours}"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Зарплата" Binding="{Binding ResultSalary}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Button Height="30" Content="Добавить доп должность" Margin="10, 8, 16, 0" Background="Green" Foreground="White" Command="{Binding CreateAdditionalProfessionCommand}"
+                            CommandParameter="{Binding SelectedWorker}" />
+                                </StackPanel>
+                                
+                            </Grid>
+
+                            <Grid>
+                                <StackPanel>
+                                    <DataGrid ItemsSource="{Binding Penalties}" AutoGenerateColumns="False" CanUserAddRows="False" Height="130">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                                            <DataGridTextColumn Header="Тип" Binding="{Binding Type}"/>
+                                            <DataGridTextColumn Header="Сумма" Binding="{Binding Summ}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Button Height="30" Content="Добавить штраф" Margin="0, 8, 0, 0" Background="Green" Foreground="White" Command="{Binding CreatePenaltieCommand}"
+                            CommandParameter="{Binding SelectedWorker}"/>
+                                </StackPanel>
+
+                            </Grid>
                         </StackPanel>
-                    </GroupBox>
+
+                    </Grid>
 
                     <GroupBox Header="Выплаты" Grid.Row="3" BorderBrush="Black">
                         <StackPanel>

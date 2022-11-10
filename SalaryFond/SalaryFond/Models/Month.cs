@@ -15,7 +15,6 @@ namespace SalaryFond.Models
             set { _Name = value; }
         }
 
-
         public ObservableCollection<Company> Companies { get; set; } = new ObservableCollection<Company>();
     }
 }
