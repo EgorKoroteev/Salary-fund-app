@@ -155,7 +155,7 @@ namespace SalaryFond.Views.Windows
 
         #endregion
 
-        #region Доп должности
+     /*   #region Доп должности
 
         public static readonly DependencyProperty AdditionalProfessionsProperty =
             DependencyProperty.Register(nameof(AdditionalProfessions),
@@ -165,7 +165,7 @@ namespace SalaryFond.Views.Windows
 
         public ObservableCollection<AdditionalProfession> AdditionalProfessions { get => (ObservableCollection<AdditionalProfession>)GetValue(AdditionalProfessionsProperty); set => SetValue(AdditionalProfessionsProperty, value); }
 
-        #endregion
+        #endregion*/
 
 
 

@@ -58,7 +58,6 @@ namespace SalaryFond.Services
                 RKO = worker.RKO,
                 ExecutiveList = worker.ExecutiveList,
                 TransferByCard = worker.TransferByCard,
-                AdditionalProfessions = worker.AdditionalProfessions,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
@@ -77,7 +76,6 @@ namespace SalaryFond.Services
             worker.RKO = dlg.RKO;
             worker.ExecutiveList = dlg.ExecutiveList;
             worker.TransferByCard = dlg.TransferByCard;
-            worker.AdditionalProfessions = dlg.AdditionalProfessions;
 
             worker.SumResultSalary();
             worker.CalculateAdditionalAndPenaltie();
