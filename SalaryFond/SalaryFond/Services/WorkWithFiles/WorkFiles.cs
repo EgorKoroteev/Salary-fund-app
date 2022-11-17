@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using SalaryFond.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,15 +11,59 @@ namespace SalaryFond.Services.WorkWithFiles
 {
     class WorkFiles
     {
-        public ObservableCollection<Month> ReadJsonBD()
+        public ObservableCollection<YearSalary> ReadJsonBD()
         {
-            ObservableCollection<Month> months = File.Exists("DataBase.json") ? JsonConvert.DeserializeObject<ObservableCollection<Month>>(File.ReadAllText("DataBase.json")) : null;
-            return months;
+            ObservableCollection<YearSalary> years = File.Exists("DataBase.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBase.json")) : null;
+            return years;
         }
 
-        public void WriteJsonBD(IEnumerable<Month> months)
+        public void WriteJsonBD(IEnumerable<YearSalary> years)
         {
-            File.WriteAllText("DataBase.json", JsonConvert.SerializeObject(months));
+            File.WriteAllText("DataBase.json", JsonConvert.SerializeObject(years));
+        }
+
+        public void WriteJsonDictionary(IEnumerable<Company> companies)
+        {
+            foreach (Company company in companies)
+            {
+                company.FactSalaryFund = 0;
+                company.NormalHours = 0;
+                company.WorkedHours = 0;
+            }
+
+            foreach (Company company in companies)
+            {
+                foreach (Worker worker in company.Workers)
+                {
+                    worker.HolidayPay = 0;
+                    worker.SickPay = 0;
+                    worker.RKO = 0;
+                    worker.ExecutiveList = 0;
+                    worker.Prize = 0;
+                    worker.PrizeBoss = 0;
+                    worker.MainSalary = 0;
+                    worker.RateRUB = 0;
+                    worker.NormalHours = 0;
+                    worker.WorkedHours = 0;
+                    worker.MainResultSalary = 0;
+                    worker.SummPay = 0;
+                    worker.SummPenalties = 0;
+                    worker.SummAdditionalProfessions = 0;
+                    worker.FinalResultSalary = 0;
+                    worker.TransferByCard = 0;
+                    worker.AdditionalProfessions.Clear();
+                    worker.Penalties.Clear();
+                    worker.WorkedDays.Clear();
+
+                }
+            }
+            File.WriteAllText("Dictionary.json", JsonConvert.SerializeObject(companies));
+        }
+
+        public ObservableCollection<Company> ReadJsonDictionary()
+        {
+            ObservableCollection<Company> companies = File.Exists("Dictionary.json") ? JsonConvert.DeserializeObject<ObservableCollection<Company>>(File.ReadAllText("Dictionary.json")) : null;
+            return companies;
         }
 
         public void WriteExcel(ObservableCollection<Company> Companies)

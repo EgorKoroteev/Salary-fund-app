@@ -1,10 +1,6 @@
 ﻿using SalaryFond.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalaryFond.Services
 {
@@ -13,16 +9,20 @@ namespace SalaryFond.Services
         private CompaniesRepository _Companies;
         private WorkersRepository _Workers;
         private MonthRepository _Months;
+        private YearsRepository _Years;
 
         public ObservableCollection<Company> Companies => _Companies.GetAll();
         public ObservableCollection<Worker> Workers => _Workers.GetAll();
         public ObservableCollection<Month> Months => _Months.GetAll();
 
-        public WorkersManager(CompaniesRepository Companies, WorkersRepository Workers, MonthRepository Month)
+        public ObservableCollection<YearSalary> Years => _Years.GetAll();
+
+        public WorkersManager(CompaniesRepository Companies, WorkersRepository Workers, MonthRepository Month, YearsRepository Years)
         {
             _Companies = Companies;
             _Workers = Workers;
             _Months = Month;
+            _Years = Years;
         }
 
         public void UpdateInformation()
@@ -33,6 +33,15 @@ namespace SalaryFond.Services
                 _Companies.GetOne(i).CalculateNormalHours();
                 _Companies.GetOne(i).CalculateWorkedHours();
             }
+        }
+
+        public bool CreateYear(YearSalary Year)
+        {
+            if (Year is null) throw new ArgumentNullException(nameof(Year));
+
+            _Years.Add(Year);
+
+            return true;
         }
 
         public bool Create(Worker Worker, string CompanyName)
@@ -89,10 +98,11 @@ namespace SalaryFond.Services
 
         public void Update(Worker Worker) => _Workers.Update(Worker.Id, Worker);
 
-        public bool CreateCompany(Company Company, string MonthName)
+        public bool CreateCompany(Company Company, string MonthName, string YearNumber)
         {
             if (Company is null) throw new ArgumentNullException(nameof(Company));
             if (string.IsNullOrWhiteSpace(MonthName)) throw new ArgumentException("Некоректное имя компании", nameof(MonthName));
+            if (string.IsNullOrWhiteSpace(YearNumber)) throw new ArgumentException("Некоректное имя компании", nameof(YearNumber));
 
             var month = _Months.Get(MonthName);
             if (month is null)
@@ -101,15 +111,43 @@ namespace SalaryFond.Services
                 _Months.Add(month);
             }
 
-            month.Companies.Add(Company);
+            var year = _Years.Get(YearNumber);
+            if (year is null)
+            {
+                year = new YearSalary { Name = YearNumber };
+                _Years.Add(year);
+            }
+
+            // Определенный месяц определенного года
+
+            //year.months[4].Companies.Add(Company);
+            year.Months[Months.IndexOf(month)].Companies.Add(Company);
+            //month.Companies.Add(Company);
             _Companies.Add(Company);
             return true;
         }
 
         public void UpdateCompany(Company Company) => _Companies.Update(Company.Id, Company);
 
-        public void SetCompaniesFromBD(ObservableCollection<Month> months)
+        public void SetCompaniesFromDictionary(YearSalary selectedYearSalary, Month selectedMonth, ObservableCollection<Company> companies)
         {
+            var year = _Years.Get(selectedYearSalary.Name);
+            var month = _Months.Get(selectedMonth.Name);
+
+            for (int i = 0; i < companies.Count; i++)
+            {
+                year.Months[Months.IndexOf(month)].Companies.Add(companies[i]);
+                if (_Companies.Get(companies[i].Name) is null)
+                {
+                    _Companies.Add(companies[i]);
+                }
+            }
+        }
+
+        public void SetCompaniesFromBD(ObservableCollection<YearSalary> years)
+        {
+            _Years.RemoveAll();
+
             for (int i = 0; i < _Months.GetCount(); i++)
             {
                 for (int j = 0; j < _Months.GetOne(i).Companies.Count; j++)
@@ -121,26 +159,37 @@ namespace SalaryFond.Services
             _Workers.RemoveAll();
             _Companies.RemoveAll();
 
-            for (int i = 0; i < months.Count; i++)
+            for (int k = 0; k < years.Count; k++)
             {
-                if (months[i].Companies.Count > 0)
-                {
-                    _Months.UpdateBD(months[i], _Months.GetOne(i));
-                    for (int j = 0; j < months[i].Companies.Count; j++)
-                    {
-                        _Companies.Add(months[i].Companies[j]);
-                    }
+                _Years.Add(years[k]);
 
-                    for (int t = 0; t < months[i].Companies.Count; t++)
+                
+                for (int i = 0; i < years[k].Months.Count; i++)
+                {
+                    for (int j = 0; j < years[k].Months[i].Companies.Count; j++)
                     {
-                        _Companies.Add(months[i].Companies[t]);
-                        for (int b = 0; b < months[i].Companies[t].Workers.Count; b++)
+                        if (_Companies.Get(years[k].Months[i].Companies[j].Name) is null)
                         {
-                            _Workers.Add(months[i].Companies[t].Workers[b]);
+                            _Companies.Add(years[k].Months[i].Companies[j]);
+                        }
+
+                        for (int a = 0; a < years[k].Months[i].Companies[j].Workers.Count; a++)
+                        {
+                            if (_Workers.Get(years[k].Months[i].Companies[j].Workers[a].FIO) is null)
+                            {
+                                _Workers.Add(years[k].Months[i].Companies[j].Workers[a]);
+                            }
                         }
                     }
                 }
             }
+
+            
+        }
+
+        public void RemoveYear(YearSalary year)
+        {
+            _Years.Remove(year);
         }
 
         public void UpdateRepository()

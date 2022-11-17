@@ -49,9 +49,20 @@ namespace SalaryFond.ViewModels
         private Month _SelectedMonth;
 
         public Month SelectedMonth { get => _SelectedMonth; set => Set(ref _SelectedMonth, value); }
+
         #endregion
 
+        #region Выбранный год
+
+        private YearSalary _SelectedYear;
+
+        public YearSalary SelectedYear { get => _SelectedYear; set => Set(ref _SelectedYear, value); }
+        #endregion
+
+
         #region Команды
+
+        #region  Команды для работы с элементами
 
         #region Команда редактирования сотрудника
 
@@ -227,9 +238,11 @@ namespace SalaryFond.ViewModels
         {
             var month = (Month)p;
 
+            var year = SelectedYear;
+
             var company = new Company();
 
-            if (!_UserDialog.Edit(company) || _WorkersManager.CreateCompany(company, month.Name))
+            if (!_UserDialog.Edit(company) || _WorkersManager.CreateCompany(company, month.Name, year.Name))
             {
                 OnPropertyChanged(nameof(Companies));
                 return;
@@ -262,6 +275,51 @@ namespace SalaryFond.ViewModels
         #endregion
 
 
+        #region Команда создания нового года
+
+        private ICommand _CreateNewYearCommand;
+
+        public ICommand CreateNewYearCommand => _CreateNewYearCommand ??= new LambdaCommand(OnCreateNewYearCommandExecuted, CanCreateNewYearCommandExecute);
+
+        private static bool CanCreateNewYearCommandExecute(object p) => true;
+
+        private void OnCreateNewYearCommandExecuted(object p)
+        {
+            var year = new YearSalary();
+
+            if (!_UserDialog.Edit(year) || _WorkersManager.CreateYear(year))
+            {
+                OnPropertyChanged(nameof(Companies));
+                return;
+            }
+
+            if (_UserDialog.Confirm("Не удалось добавить новый год. Повторить?", "Менеджер сотрудников"))
+            {
+                OnCreateNewWorkerCommandExecuted(p);
+            }
+
+        }
+
+        #endregion
+        #region Команда удаления года
+
+        private ICommand _RemoveYearCommand;
+
+        public ICommand RemoveYearCommand => _RemoveYearCommand ??= new LambdaCommand(OnRemoveYearCommandExecuted, CanRemoveYearCommandExecute);
+
+        private bool CanRemoveYearCommandExecute(object p) => SelectedYear != null;
+
+        private void OnRemoveYearCommandExecuted(object p)
+        {
+            _WorkersManager.RemoveYear(SelectedYear);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Команды для работы с файлами
+
         #region Команда для выгрузги БД
 
         private ICommand _ExportBDCommand;
@@ -272,7 +330,7 @@ namespace SalaryFond.ViewModels
 
         private void OnExportBDCommandExecuted(object p)
         {
-            _WorkFiles.WriteJsonBD(_WorkersManager.Months);
+            _WorkFiles.WriteJsonBD(_WorkersManager.Years);
         }
 
         #endregion
@@ -286,8 +344,38 @@ namespace SalaryFond.ViewModels
 
         private void OnImportBDCommandExecuted(object p)
         {
-            var months = _WorkFiles.ReadJsonBD();
-            _WorkersManager.SetCompaniesFromBD(months);
+            var years = _WorkFiles.ReadJsonBD();
+            _WorkersManager.SetCompaniesFromBD(years);
+        }
+
+        #endregion
+
+        #region Команда для выгрузги словаря
+
+        private ICommand _ExportDictionaryCommand;
+
+        public ICommand ExportDictionaryCommand => _ExportDictionaryCommand ??= new LambdaCommand(OnExportDictionaryCommandExecuted, CanExportDictionaryCommandExecute);
+
+        private static bool CanExportDictionaryCommandExecute(object p) => true;
+
+        private void OnExportDictionaryCommandExecuted(object p)
+        {
+            _WorkFiles.WriteJsonDictionary(_WorkersManager.Companies);
+        }
+
+        #endregion
+        #region Команда для загрузки словаря
+
+        private ICommand _ImportDictionaryCommand;
+
+        public ICommand ImportDictionaryCommand => _ImportDictionaryCommand ??= new LambdaCommand(OnImportDictionaryCommandExecuted, CanImportDictionaryCommandExecute);
+
+        private static bool CanImportDictionaryCommandExecute(object p) => true;
+
+        private void OnImportDictionaryCommandExecuted(object p)
+        {
+            var companies = _WorkFiles.ReadJsonDictionary();
+            _WorkersManager.SetCompaniesFromDictionary(SelectedYear, SelectedMonth, companies);
         }
 
         #endregion
@@ -304,6 +392,8 @@ namespace SalaryFond.ViewModels
         {
             _WorkFiles.WriteExcel(_WorkersManager.Companies);
         }
+
+        #endregion
 
         #endregion
 
@@ -329,6 +419,8 @@ namespace SalaryFond.ViewModels
         public ObservableCollection<Worker> Workers => _WorkersManager.Workers;
 
         public ObservableCollection<Month> Months => _WorkersManager.Months;
+
+        public ObservableCollection<YearSalary> Years => _WorkersManager.Years;
 
 
         public MainWindowViewModel(WorkersManager WorkersManager, IUserDialogService UserDialog, WorkFiles WorkFiles)

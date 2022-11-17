@@ -22,6 +22,9 @@
     <Compile Update="Views\Windows\WorkerEditorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Windows\YearEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Windows\AdditionalProfessionEditorWindow.xaml">
@@ -40,6 +43,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\WorkerEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\YearEditorWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

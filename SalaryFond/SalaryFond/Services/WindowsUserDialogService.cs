@@ -14,6 +14,9 @@ namespace SalaryFond.Services
 
             switch (item)
             {
+                case YearSalary year:
+                    return EditYear(year);
+
                 case Worker worker:
                     return EditWorker(worker);
 
@@ -41,6 +44,21 @@ namespace SalaryFond.Services
                 Caption, 
                 MessageBoxButton.YesNo, 
                 Exclamation ? MessageBoxImage.Exclamation : MessageBoxImage.Question) == MessageBoxResult.Yes;
+
+        private static bool EditYear(YearSalary year)
+        {
+            var dlg = new YearEditorWindow()
+            {
+                YearNumber = year.Name,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            if (dlg.ShowDialog() != true) return false;
+
+            year.Name = dlg.YearNumber;
+            return true;
+        }
 
         private static bool EditWorker(Worker worker)
         {

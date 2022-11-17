@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SalaryFond.Views.Windows"
         mc:Ignorable="d"
         xmlns:c="clr-namespace:SalaryFond.Infrastructure.Commads"
-        Title="PenaltieEditorWindow" Height="300" Width="300"
+        Title="Редактор штрафа" Height="300" Width="300"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.RowDefinitions>

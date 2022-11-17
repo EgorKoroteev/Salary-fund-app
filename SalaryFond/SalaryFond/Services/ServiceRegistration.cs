@@ -17,6 +17,7 @@ namespace SalaryFond.Services
             services.AddSingleton<CompaniesRepository>();
             services.AddSingleton<WorkersRepository>();
             services.AddSingleton<MonthRepository>();
+            services.AddSingleton<YearsRepository>();
             services.AddSingleton<WorkersManager>();
             services.AddSingleton<WorkFiles>();
 
