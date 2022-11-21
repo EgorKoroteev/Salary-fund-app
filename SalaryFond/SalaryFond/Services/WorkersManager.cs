@@ -62,6 +62,7 @@ namespace SalaryFond.Services
             }
 
             Worker.SumResultSalary();
+            Worker.CalculateAdditionalAndPenaltie();
             year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers.Add(Worker);
             year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateSalaryFond();
             year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateNormalHours();
