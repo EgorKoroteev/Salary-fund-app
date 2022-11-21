@@ -1,4 +1,5 @@
-﻿using SalaryFond.Models;
+﻿using Microsoft.Win32;
+using SalaryFond.Models;
 using SalaryFond.Services.Interfaces;
 using SalaryFond.Views.Windows;
 using System;
@@ -8,6 +9,23 @@ namespace SalaryFond.Services
 {
     internal class WindowsUserDialogService : IUserDialogService
     {
+        public bool OpenFile(string Title, out string SelectedFile, string Filter = "Все файлы (*.*)|*.*")
+        {
+            var file_dialog = new OpenFileDialog()
+            {
+                Title = Title,
+                Filter = Filter
+            };
+
+            if (file_dialog.ShowDialog() != true)
+            {
+                SelectedFile = null;
+                return false;
+            }
+
+            SelectedFile = file_dialog.FileName;
+            return true;
+        }
         public bool Edit(object item)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
