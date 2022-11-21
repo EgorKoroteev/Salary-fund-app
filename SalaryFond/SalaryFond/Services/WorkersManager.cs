@@ -44,23 +44,28 @@ namespace SalaryFond.Services
             return true;
         }
 
-        public bool Create(Worker Worker, string CompanyName)
+        public bool Create(string YearNumber, string MonthName, Worker Worker, string CompanyName)
         {
             if (Worker is null) throw new ArgumentNullException(nameof(Worker));
             if (string.IsNullOrWhiteSpace(CompanyName)) throw new ArgumentException("Некоректное имя компании", nameof(CompanyName));
+            if (string.IsNullOrWhiteSpace(YearNumber)) throw new ArgumentException("Некоректное имя компании", nameof(YearNumber));
+            if (string.IsNullOrWhiteSpace(MonthName)) throw new ArgumentException("Некоректное имя компании", nameof(MonthName));
 
             var company = _Companies.Get(CompanyName);
+            var year = _Years.Get(YearNumber);
+            var month = _Months.Get(MonthName);
+
             if (company is null)
             {
                 company = new Company { Name = CompanyName };
                 _Companies.Add(company);
             }
 
-            company.Workers.Add(Worker);
             Worker.SumResultSalary();
-            company.CalculateSalaryFond();
-            company.CalculateNormalHours();
-            company.CalculateWorkedHours();
+            year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers.Add(Worker);
+            year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateSalaryFond();
+            year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateNormalHours();
+            year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateWorkedHours();
             _Workers.Add(Worker);
             return true;
         }
@@ -137,10 +142,7 @@ namespace SalaryFond.Services
             for (int i = 0; i < companies.Count; i++)
             {
                 year.Months[Months.IndexOf(month)].Companies.Add(companies[i]);
-                if (_Companies.Get(companies[i].Name) is null)
-                {
-                    _Companies.Add(companies[i]);
-                }
+                _Companies.Add(companies[i]);
             }
         }
 

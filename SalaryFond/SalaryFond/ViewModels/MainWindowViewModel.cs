@@ -98,7 +98,7 @@ namespace SalaryFond.ViewModels
 
             var worker = new Worker();
 
-            if (!_UserDialog.Edit(worker) || _WorkersManager.Create(worker, company.Name))
+            if (!_UserDialog.Edit(worker) || _WorkersManager.Create(SelectedYear.Name, SelectedMonth.Name, worker, company.Name))
             {
                 OnPropertyChanged(nameof(Workers));
                 return;
