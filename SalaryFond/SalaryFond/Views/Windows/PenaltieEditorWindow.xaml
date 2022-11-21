@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SalaryFond.Views.Windows"
         mc:Ignorable="d"
         xmlns:c="clr-namespace:SalaryFond.Infrastructure.Commads"
-        Title="Редактор штрафа" Height="300" Width="300"
+        Title="Редактор штрафа" Height="300" Width="250"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,25 +17,37 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel>
+            <StackPanel  Margin="10,0">
                 <TextBlock Text="Название"/>
                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NamePenaltie}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel>
+            <StackPanel  Margin="10,0">
                 <TextBlock Text="Тип"/>
                 <ComboBox Text="{Binding Type}">
+                    <TextBlock Text="Употребление на рабочем алкогольных и психотропных веществ"/>
+                    <TextBlock Text="Нарушение противопожарного режима"/>
+                    <TextBlock Text="Нарушение требований охраны труда"/>
+                    <TextBlock Text="Нарушение должностной инструкции"/>
+                    <TextBlock Text="Выход на работу в нетрезвом виде"/>
+                    <TextBlock Text="Отсутствие санитарной одежды"/>
+                    <TextBlock Text="Недосдача по итогам ревизии"/>
+                    <TextBlock Text="Грязная сонитарная одежда"/>
+                    <TextBlock Text="Порча продуктов питания"/>
+                    <TextBlock Text="Опоздание на работу"/>
+                    <TextBlock Text="Недосдача в кассе"/>
                     <TextBlock Text="Порча имущества"/>
                     <TextBlock Text="Украшения"/>
                     <TextBlock Text="Вороство"/>
                     <TextBlock Text="Прогул"/>
+                    <TextBlock Text="Другое"/>
                 </ComboBox>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="2">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Сумма"/>
                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding Sum}" PreviewTextInput="TextBox_PreviewTextInput"/>
             </StackPanel>

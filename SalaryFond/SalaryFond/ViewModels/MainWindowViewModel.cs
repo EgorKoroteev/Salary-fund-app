@@ -1,15 +1,8 @@
 ﻿using SalaryFond.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SalaryFond.Services;
 using SalaryFond.Models;
 using System.Windows.Input;
 using SalaryFond.Infrastructure.Commads;
-using SalaryFond.Views.Windows;
-using System.Windows;
 using SalaryFond.Services.Interfaces;
 using SalaryFond.Services.WorkWithFiles;
 using System.Collections.ObjectModel;
@@ -286,6 +279,7 @@ namespace SalaryFond.ViewModels
         private void OnCreateNewYearCommandExecuted(object p)
         {
             var year = new YearSalary();
+            year.NewYear();
 
             if (!_UserDialog.Edit(year) || _WorkersManager.CreateYear(year))
             {
@@ -356,7 +350,7 @@ namespace SalaryFond.ViewModels
 
         public ICommand ExportDictionaryCommand => _ExportDictionaryCommand ??= new LambdaCommand(OnExportDictionaryCommandExecuted, CanExportDictionaryCommandExecute);
 
-        private static bool CanExportDictionaryCommandExecute(object p) => true;
+        private static bool CanExportDictionaryCommandExecute(object p) => p is Month;
 
         private void OnExportDictionaryCommandExecuted(object p)
         {
@@ -370,7 +364,7 @@ namespace SalaryFond.ViewModels
 
         public ICommand ImportDictionaryCommand => _ImportDictionaryCommand ??= new LambdaCommand(OnImportDictionaryCommandExecuted, CanImportDictionaryCommandExecute);
 
-        private static bool CanImportDictionaryCommandExecute(object p) => true;
+        private static bool CanImportDictionaryCommandExecute(object p) => p is Month;
 
         private void OnImportDictionaryCommandExecuted(object p)
         {
@@ -386,11 +380,11 @@ namespace SalaryFond.ViewModels
 
         public ICommand ExportExcelCommand => _ExportExcelCommand ??= new LambdaCommand(OnExportExcelCommandExecuted, CanExportExcelCommandExecute);
 
-        private static bool CanExportExcelCommandExecute(object p) => true;
+        private static bool CanExportExcelCommandExecute(object p) => p is Month;
 
         private void OnExportExcelCommandExecuted(object p)
         {
-            _WorkFiles.WriteExcel(_WorkersManager.Companies);
+            _WorkFiles.WriteExcel(SelectedMonth.Companies);
         }
 
         #endregion

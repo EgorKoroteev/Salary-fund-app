@@ -15,8 +15,12 @@ namespace SalaryFond.Models
             set { _Name = value; }
         }
 
-        public ObservableCollection<Month> Months { get; set; } = 
-        new ObservableCollection<Month> { new Month { Name = "Январь" },
+        public ObservableCollection<Month> Months { get; set; } = new ObservableCollection<Month>();
+
+        public void NewYear()
+        {
+            Months = new ObservableCollection<Month> {
+                new Month { Name = "Январь" },
         new Month { Name = "Февраль" },
         new Month { Name = "Март" },
         new Month { Name = "Апрель" },
@@ -28,5 +32,6 @@ namespace SalaryFond.Models
         new Month { Name = "Октябрь" },
         new Month { Name = "Ноябрь" },
         new Month { Name = "Декабрь" } };
+        }
     }
 }
