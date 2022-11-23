@@ -17,5 +17,7 @@ namespace SalaryFond.Services.Interfaces
         void ShowError(string Message, string Caption);
 
         bool Confirm(string Message, string Caption, bool Exclamation = false);
+
+        bool OpenFile(string Title, out string SelectedFile, string Filter = "Все файлы (*.*)|*.*");
     }
 }

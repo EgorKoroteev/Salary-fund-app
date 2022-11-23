@@ -1,11 +1,5 @@
-﻿using Magnum.Reflection;
-using SalaryFond.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System;
 using System.Windows;
-using System.Windows.Data;
 
 namespace SalaryFond.Views.Windows
 {

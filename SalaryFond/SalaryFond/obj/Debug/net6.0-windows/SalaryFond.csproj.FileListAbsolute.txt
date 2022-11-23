@@ -57,11 +57,11 @@ Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFon
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\CompanyEditorWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\AdditionalProfessionEditorWindow.g.cs
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\AdditionalProfessionEditorWindow.baml
-Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\ResultCompaniesWindow.g.cs
-Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\ResultCompaniesWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\PenaltieEditorWindow.g.cs
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\PenaltieEditorWindow.baml
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Debug\net6.0-windows\EPPlus.dll
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\bin\Debug\net6.0-windows\System.Xml.XPath.XmlDocument.dll
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\YearEditorWindow.g.cs
 Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\YearEditorWindow.baml
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\ListWorkersWindow.g.cs
+Z:\C#Projects\Сalculation of the salary fund\ResultProject\SalaryFond\SalaryFond\obj\Debug\net6.0-windows\Views\Windows\ListWorkersWindow.baml

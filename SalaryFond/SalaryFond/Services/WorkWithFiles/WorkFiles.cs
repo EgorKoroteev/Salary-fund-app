@@ -66,7 +66,7 @@ namespace SalaryFond.Services.WorkWithFiles
             return companies;
         }
 
-        public void WriteExcel(ObservableCollection<Company> Companies)
+        public void WriteExcel(ObservableCollection<Company> Companies, string file_path)
         {
             var report = new ExcelPackage();
 
@@ -154,7 +154,7 @@ namespace SalaryFond.Services.WorkWithFiles
                 report.Workbook.Worksheets[i].Cells[1, 1, 1, 19].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             }
 
-            File.WriteAllBytes("Output.xlsx", report.GetAsByteArray());
+            File.WriteAllBytes(file_path, report.GetAsByteArray());
 
         }
     }

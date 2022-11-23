@@ -1,0 +1,36 @@
+﻿<Window x:Class="SalaryFond.Views.Windows.ListWorkersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalaryFond.Views.Windows"
+        mc:Ignorable="d"
+        Title="ListWorkersWindow" Height="450" Width="1920"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№"/>
+                <DataGridTextColumn Header="ФИО" Width="180"/>
+                <DataGridTextColumn Header="Должность" Width="100"/>
+                <DataGridTextColumn Header="Оклад" Width="80"/>
+                <DataGridTextColumn Header="Часы(отработанные)"/>
+                <DataGridTextColumn Header="Часы(норма)"/>
+                <DataGridTextColumn Header="Ставка руб/час"/>
+                <DataGridTextColumn Header="Начислено по окладу"/>
+                <DataGridTextColumn Header="Отпускные"/>
+                <DataGridTextColumn Header="Больничные"/>
+                <DataGridTextColumn Header="Премия 10%"/>
+                <DataGridTextColumn Header="Премия руководителя"/>
+                <DataGridTextColumn Header="Штраф" Width="80"/>
+                <DataGridTextColumn Header="Итого начислено"/>
+                <DataGridTextColumn Header="Аванс" Width="80"/>
+                <DataGridTextColumn Header="РКО" Width="80"/>
+                <DataGridTextColumn Header="Исп. лист" Width="80"/>
+                <DataGridTextColumn Header="Перечислено р/с"/>
+                <DataGridTextColumn Header="Остаток к выдаче"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</Window>

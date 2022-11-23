@@ -384,7 +384,11 @@ namespace SalaryFond.ViewModels
 
         private void OnExportExcelCommandExecuted(object p)
         {
-            _WorkFiles.WriteExcel(SelectedMonth.Companies);
+            if (_UserDialog.OpenFile("Выбор файла", out var file_path))
+            {
+                _WorkFiles.WriteExcel(SelectedMonth.Companies, file_path);
+            }
+            
         }
 
         #endregion

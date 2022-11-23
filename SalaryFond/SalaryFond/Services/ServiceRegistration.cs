@@ -12,7 +12,6 @@ namespace SalaryFond.Services
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<AddCompanyViewModel>();
-            services.AddSingleton<ResultCompaniesViewModel>();
 
             services.AddSingleton<CompaniesRepository>();
             services.AddSingleton<WorkersRepository>();

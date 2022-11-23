@@ -7,13 +7,13 @@ namespace SalaryFond.Infrastructure.Commads
 {
     class OpenResultCompaniesCommand : Command
     {
-        private ResultCompaniesWindow _window;
+        private ListWorkersWindow _window;
 
         public override bool CanExecute(object parameter) => _window == null;
 
         public override void Execute(object parameter)
         {
-            var window = new ResultCompaniesWindow
+            var window = new ListWorkersWindow
             {
                 
             };
