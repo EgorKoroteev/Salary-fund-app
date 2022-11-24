@@ -23,13 +23,13 @@ namespace SalaryFond.Services.WorkWithFiles
 
         public ObservableCollection<YearSalary> ReadJsonBDArchive()
         {
-            ObservableCollection<YearSalary> years = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBase.json")) : null;
+            ObservableCollection<YearSalary> years = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBaseArchive.json")) : null;
             return years;
         }
 
         public void WriteJsonBDArchive(ObservableCollection<YearSalary> years)
         {
-            ObservableCollection<YearSalary> yearsRead = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBase.json")) : null;
+            ObservableCollection<YearSalary> yearsRead = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBaseArchive.json")) : null;
             if (yearsRead != null)
             {
                 if (years.Count == 1)
