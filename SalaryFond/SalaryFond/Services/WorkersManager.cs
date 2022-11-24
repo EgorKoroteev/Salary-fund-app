@@ -39,6 +39,8 @@ namespace SalaryFond.Services
         {
             if (Year is null) throw new ArgumentNullException(nameof(Year));
 
+            _Years.RemoveAll();
+
             _Years.Add(Year);
 
             return true;
@@ -144,6 +146,31 @@ namespace SalaryFond.Services
             {
                 year.Months[Months.IndexOf(month)].Companies.Add(companies[i]);
                 _Companies.Add(companies[i]);
+            }
+        }
+
+        public void SetCompaniesFromBDYear(YearSalary year)
+        {
+            _Years.Add(year);
+
+
+            for (int i = 0; i < year.Months.Count; i++)
+            {
+                for (int j = 0; j < year.Months[i].Companies.Count; j++)
+                {
+                    if (_Companies.Get(year.Months[i].Companies[j].Name) is null)
+                    {
+                        _Companies.Add(year.Months[i].Companies[j]);
+                    }
+
+                    for (int a = 0; a < year.Months[i].Companies[j].Workers.Count; a++)
+                    {
+                        if (_Workers.Get(year.Months[i].Companies[j].Workers[a].FIO) is null)
+                        {
+                            _Workers.Add(year.Months[i].Companies[j].Workers[a]);
+                        }
+                    }
+                }
             }
         }
 

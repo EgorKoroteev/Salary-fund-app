@@ -320,11 +320,11 @@ namespace SalaryFond.ViewModels
 
         public ICommand ExportBDCommand => _ExportBDCommand ??= new LambdaCommand(OnExportBDCommandExecuted, CanExportBDCommandExecute);
 
-        private static bool CanExportBDCommandExecute(object p) => true;
+        private static bool CanExportBDCommandExecute(object p) => p is YearSalary;
 
         private void OnExportBDCommandExecuted(object p)
         {
-            _WorkFiles.WriteJsonBD(_WorkersManager.Years);
+            _WorkFiles.WriteJsonBD(SelectedYear);
         }
 
         #endregion
@@ -338,8 +338,50 @@ namespace SalaryFond.ViewModels
 
         private void OnImportBDCommandExecuted(object p)
         {
-            var years = _WorkFiles.ReadJsonBD();
-            _WorkersManager.SetCompaniesFromBD(years);
+            var year = _WorkFiles.ReadJsonBD();
+            if (year != null)
+            {
+                _WorkersManager.SetCompaniesFromBDYear(year);
+            }
+            
+        }
+
+        #endregion
+
+        #region Команда для выгрузги БД архива
+
+        private ICommand _ExportBDArchiveCommand;
+
+        public ICommand ExportBDArchiveCommand => _ExportBDArchiveCommand ??= new LambdaCommand(OnExportBDArchiveCommandExecuted, CanExportBDArchiveCommandExecute);
+
+        private static bool CanExportBDArchiveCommandExecute(object p) => true;
+
+        private void OnExportBDArchiveCommandExecuted(object p)
+        {
+            if (_WorkersManager.Years.Count > 0)
+            {
+                _WorkFiles.WriteJsonBDArchive(_WorkersManager.Years);
+            }
+            
+        }
+
+        #endregion
+        #region Команда для загрузки БД архива
+
+        private ICommand _ImportBDArchiveCommand;
+
+        public ICommand ImportBDArchiveCommand => _ImportBDArchiveCommand ??= new LambdaCommand(OnImportBDArchiveCommandExecuted, CanImportBDArchiveCommandExecute);
+
+        private static bool CanImportBDArchiveCommandExecute(object p) => true;
+
+        private void OnImportBDArchiveCommandExecuted(object p)
+        {
+            var years = _WorkFiles.ReadJsonBDArchive();
+            if (years != null)
+            {
+                _WorkersManager.SetCompaniesFromBD(years);
+            }
+            
         }
 
         #endregion
@@ -369,7 +411,11 @@ namespace SalaryFond.ViewModels
         private void OnImportDictionaryCommandExecuted(object p)
         {
             var companies = _WorkFiles.ReadJsonDictionary();
-            _WorkersManager.SetCompaniesFromDictionary(SelectedYear, SelectedMonth, companies);
+            if (companies != null)
+            {
+                _WorkersManager.SetCompaniesFromDictionary(SelectedYear, SelectedMonth, companies);
+            }
+            
         }
 
         #endregion

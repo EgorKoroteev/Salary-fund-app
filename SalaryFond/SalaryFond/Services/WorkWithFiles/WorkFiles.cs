@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using OfficeOpenXml;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using SalaryFond.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,15 +10,39 @@ namespace SalaryFond.Services.WorkWithFiles
 {
     class WorkFiles
     {
-        public ObservableCollection<YearSalary> ReadJsonBD()
+        public YearSalary ReadJsonBD()
         {
-            ObservableCollection<YearSalary> years = File.Exists("DataBase.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBase.json")) : null;
+            YearSalary year = File.Exists("DataBase.json") ? JsonConvert.DeserializeObject<YearSalary>(File.ReadAllText("DataBase.json")) : null;
+            return year;
+        }
+
+        public void WriteJsonBD(YearSalary year)
+        {
+            File.WriteAllText("DataBase.json", JsonConvert.SerializeObject(year));
+        }
+
+        public ObservableCollection<YearSalary> ReadJsonBDArchive()
+        {
+            ObservableCollection<YearSalary> years = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBase.json")) : null;
             return years;
         }
 
-        public void WriteJsonBD(IEnumerable<YearSalary> years)
+        public void WriteJsonBDArchive(ObservableCollection<YearSalary> years)
         {
-            File.WriteAllText("DataBase.json", JsonConvert.SerializeObject(years));
+            ObservableCollection<YearSalary> yearsRead = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBase.json")) : null;
+            if (yearsRead != null)
+            {
+                if (years.Count == 1)
+                {
+
+                }
+                else if (years.Count > 1)
+                {
+
+                }
+            }
+
+            File.WriteAllText("DataBaseArchive.json", JsonConvert.SerializeObject(years));
         }
 
         public void WriteJsonDictionary(IEnumerable<Company> companies)
