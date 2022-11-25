@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SalaryFond.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +21,7 @@ namespace SalaryFond.Services.Interfaces
         bool Confirm(string Message, string Caption, bool Exclamation = false);
 
         bool OpenFile(string Title, out string SelectedFile, string Filter = "Все файлы (*.*)|*.*");
+
+        void OpenWorkerList(ObservableCollection<Worker> workers);
     }
 }

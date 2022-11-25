@@ -57,6 +57,22 @@ namespace SalaryFond.ViewModels
 
         #region  Команды для работы с элементами
 
+        #region
+
+        private ICommand _OpenWorkerListWindowCommand;
+
+        public ICommand OpenWorkerListWindowCommand => _OpenWorkerListWindowCommand ??= new LambdaCommand(OnOpenWorkerListWindowCommandExecuted, CanOpenWorkerListWindowCommandExecute);
+
+        private static bool CanOpenWorkerListWindowCommandExecute(object p) => p is Company;
+
+        private void OnOpenWorkerListWindowCommandExecuted(object p)
+        {
+            _UserDialog.OpenWorkerList(SelectedCompany.Workers);
+
+        }
+
+        #endregion
+
         #region Команда редактирования сотрудника
 
         private ICommand _EditWorkerCommand;
@@ -101,6 +117,7 @@ namespace SalaryFond.ViewModels
             if (!_UserDialog.Edit(worker) || _WorkersManager.Create(SelectedYear.Name, SelectedMonth.Name, worker, company.Name))
             {
                 OnPropertyChanged(nameof(Workers));
+                _UserDialog.ShowInformation("Сотрудник создан", "Медеджер сотрудников");
                 return;
             }
 
@@ -126,6 +143,7 @@ namespace SalaryFond.ViewModels
             var selectedCompany = SelectedCompany;
             SelectedCompany = null;
             SelectedCompany = selectedCompany;
+            _UserDialog.ShowInformation("Сотрудник удален", "Медеджер сотрудников");
         }
 
         #endregion
@@ -149,10 +167,11 @@ namespace SalaryFond.ViewModels
                 SelectedCompany = null;
                 SelectedCompany = selectCompany;
                 OnPropertyChanged(nameof(Workers));
+                _UserDialog.ShowInformation("Дополнительная должность добавлена", "Медеджер сотрудников");
                 return;
             }
 
-            if (_UserDialog.Confirm("Не удалось добавить новую должность. Повторить?", "Менеджер сотрудников"))
+            if (_UserDialog.Confirm("Не удалось добавить дополнительную должность. Повторить?", "Менеджер сотрудников"))
             {
                 OnCreateAdditionalProfessionCommandExecuted(p);
             }
@@ -180,10 +199,11 @@ namespace SalaryFond.ViewModels
                 SelectedCompany = null;
                 SelectedCompany = selectCompany;
                 OnPropertyChanged(nameof(Workers));
+                _UserDialog.ShowInformation("Штраф добавлен", "Медеджер сотрудников");
                 return;
             }
 
-            if (_UserDialog.Confirm("Не удалось добавить новую должность. Повторить?", "Менеджер сотрудников"))
+            if (_UserDialog.Confirm("Не удалось добавить штраф. Повторить?", "Менеджер сотрудников"))
             {
                 OnCreateAdditionalProfessionCommandExecuted(p);
             }
@@ -238,10 +258,11 @@ namespace SalaryFond.ViewModels
             if (!_UserDialog.Edit(company) || _WorkersManager.CreateCompany(company, month.Name, year.Name))
             {
                 OnPropertyChanged(nameof(Companies));
+                _UserDialog.ShowInformation("Подразделение создано", "Медеджер подразделений");
                 return;
             }
 
-            if (_UserDialog.Confirm("Не удалось добавить нового сотрудника. Повторить?", "Менеджер сотрудников"))
+            if (_UserDialog.Confirm("Не удалось добавить новое подразделение. Повторить?", "Менеджер подразделений"))
             {
                 OnCreateNewWorkerCommandExecuted(p);
             }
@@ -263,6 +284,7 @@ namespace SalaryFond.ViewModels
             var selectedMonth = SelectedMonth;
             SelectedMonth = null;
             SelectedMonth = selectedMonth;
+            _UserDialog.ShowInformation("Подразделение удалено", "Медеджер подразделений");
         }
 
         #endregion
@@ -284,10 +306,11 @@ namespace SalaryFond.ViewModels
             if (!_UserDialog.Edit(year) || _WorkersManager.CreateYear(year))
             {
                 OnPropertyChanged(nameof(Companies));
+                _UserDialog.ShowInformation("Добален год", "Медеджер");
                 return;
             }
 
-            if (_UserDialog.Confirm("Не удалось добавить новый год. Повторить?", "Менеджер сотрудников"))
+            if (_UserDialog.Confirm("Не удалось добавить год. Повторить?", "Менеджер"))
             {
                 OnCreateNewWorkerCommandExecuted(p);
             }
@@ -306,6 +329,7 @@ namespace SalaryFond.ViewModels
         private void OnRemoveYearCommandExecuted(object p)
         {
             _WorkersManager.RemoveYear(SelectedYear);
+            _UserDialog.ShowInformation("Год удален", "Медеджер");
         }
 
         #endregion

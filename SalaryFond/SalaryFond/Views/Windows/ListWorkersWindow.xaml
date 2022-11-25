@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryFond.Views.Windows"
         mc:Ignorable="d"
-        Title="ListWorkersWindow" Height="450" Width="1920"
+        Title="ListWorkersWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
-        <DataGrid>
+        <DataGrid ItemsSource="{Binding WorkerList}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№"/>
-                <DataGridTextColumn Header="ФИО" Width="180"/>
+                <DataGridTextColumn Header="№" IsReadOnly="True" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="ФИО" Width="180"  IsReadOnly="True" Binding="{Binding FIO}"/>
                 <DataGridTextColumn Header="Должность" Width="100"/>
                 <DataGridTextColumn Header="Оклад" Width="80"/>
                 <DataGridTextColumn Header="Часы(отработанные)"/>

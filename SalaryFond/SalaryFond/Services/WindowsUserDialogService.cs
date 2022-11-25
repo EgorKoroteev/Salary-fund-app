@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using SalaryFond.Models;
 using SalaryFond.Services.Interfaces;
 using SalaryFond.Views.Windows;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace SalaryFond.Services
@@ -26,6 +28,19 @@ namespace SalaryFond.Services
             SelectedFile = file_dialog.FileName;
             return true;
         }
+
+        public void OpenWorkerList(ObservableCollection<Worker> workers)
+        {
+            var dlg = new ListWorkersWindow()
+            {
+                WorkerList = workers,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            if (dlg.ShowDialog() != true) return;
+        }
+
         public bool Edit(object item)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));

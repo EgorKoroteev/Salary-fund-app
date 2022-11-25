@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace SalaryFond.Models
 {
-    internal class Worker : IEntity
+    public class Worker : IEntity
     {
         public int Id { get; set; }
 
@@ -187,10 +187,6 @@ namespace SalaryFond.Models
 
         // Можно вводить
         public ObservableCollection<Penalties> Penalties { get; set; } = new ObservableCollection<Penalties>();
-
-        // Можно вводить
-        public ObservableCollection<WorkedDay> WorkedDays { get; set; } = new ObservableCollection<WorkedDay>();
-
 
         public void SumResultSalary()
         {

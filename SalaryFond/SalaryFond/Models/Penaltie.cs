@@ -1,6 +1,6 @@
 ﻿namespace SalaryFond.Models
 {
-    internal class Penalties
+    public class Penalties
     {
         private string _Name;
 

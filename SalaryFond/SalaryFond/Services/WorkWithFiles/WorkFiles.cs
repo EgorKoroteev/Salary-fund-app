@@ -76,7 +76,6 @@ namespace SalaryFond.Services.WorkWithFiles
                     worker.TransferByCard = 0;
                     worker.AdditionalProfessions.Clear();
                     worker.Penalties.Clear();
-                    worker.WorkedDays.Clear();
 
                 }
             }

@@ -36,11 +36,7 @@
                 <MenuItem Header="Выгрузить архив" Command="{Binding ExportBDArchiveCommand}"/>
 
             </MenuItem>
-            <MenuItem Header="Таблица сотрудников">
-                <MenuItem.Command>
-                    <c:OpenResultCompaniesCommand/>
-                </MenuItem.Command>
-            </MenuItem>
+            <MenuItem Header="Таблица сотрудников" Command="{Binding OpenWorkerListWindowCommand}" CommandParameter="{Binding SelectedCompany}"/>
             <MenuItem Header="Excel">
                 <MenuItem Header="Выгрузить Excel" Command="{Binding ExportExcelCommand}" CommandParameter="{Binding SelectedMonth}"/>
             </MenuItem>
