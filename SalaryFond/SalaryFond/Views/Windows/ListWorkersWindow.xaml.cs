@@ -12,7 +12,7 @@ namespace SalaryFond.Views.Windows
         public static readonly DependencyProperty WorkerListProperty =
             DependencyProperty.Register(nameof(WorkerList),
                 typeof(ObservableCollection<Worker>),
-                typeof(WorkerEditorWindow),
+                typeof(ListWorkersWindow),
                 new PropertyMetadata(default(ObservableCollection<Worker>)));
 
         public ObservableCollection<Worker> WorkerList { get => (ObservableCollection<Worker>)GetValue(WorkerListProperty); set => SetValue(WorkerListProperty, value); }

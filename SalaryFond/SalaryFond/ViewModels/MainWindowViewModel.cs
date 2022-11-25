@@ -57,7 +57,7 @@ namespace SalaryFond.ViewModels
 
         #region  Команды для работы с элементами
 
-        #region
+        #region Команда для открытия окна OpenWorkerList
 
         private ICommand _OpenWorkerListWindowCommand;
 

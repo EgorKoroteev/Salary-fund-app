@@ -8,27 +8,28 @@
         Title="ListWorkersWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
-        <DataGrid ItemsSource="{Binding WorkerList}">
+
+        <DataGrid ItemsSource="{Binding WorkerList}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" IsReadOnly="True" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="ФИО" Width="180"  IsReadOnly="True" Binding="{Binding FIO}"/>
-                <DataGridTextColumn Header="Должность" Width="100"/>
-                <DataGridTextColumn Header="Оклад" Width="80"/>
-                <DataGridTextColumn Header="Часы(отработанные)"/>
-                <DataGridTextColumn Header="Часы(норма)"/>
-                <DataGridTextColumn Header="Ставка руб/час"/>
-                <DataGridTextColumn Header="Начислено по окладу"/>
-                <DataGridTextColumn Header="Отпускные"/>
-                <DataGridTextColumn Header="Больничные"/>
-                <DataGridTextColumn Header="Премия 10%"/>
-                <DataGridTextColumn Header="Премия руководителя"/>
-                <DataGridTextColumn Header="Штраф" Width="80"/>
-                <DataGridTextColumn Header="Итого начислено"/>
-                <DataGridTextColumn Header="Аванс" Width="80"/>
-                <DataGridTextColumn Header="РКО" Width="80"/>
-                <DataGridTextColumn Header="Исп. лист" Width="80"/>
-                <DataGridTextColumn Header="Перечислено р/с"/>
-                <DataGridTextColumn Header="Остаток к выдаче"/>
+                <DataGridTextColumn Header="Должность" Width="100" IsReadOnly="True" Binding="{Binding MainProfession}"/>
+                <DataGridTextColumn Header="Оклад" Width="80" IsReadOnly="True" Binding="{Binding MainSalary}"/>
+                <DataGridTextColumn Header="Часы(отработанные)" IsReadOnly="True" Binding="{Binding WorkedHours}"/>
+                <DataGridTextColumn Header="Часы(норма)" IsReadOnly="True" Binding="{Binding NormalHours}"/>
+                <DataGridTextColumn Header="Ставка руб/час" IsReadOnly="True" Binding="{Binding RateRUB}"/>
+                <DataGridTextColumn Header="Начислено по окладу" IsReadOnly="True" Binding="{Binding MainResultSalary}"/>
+                <DataGridTextColumn Header="Отпускные" IsReadOnly="True" Binding="{Binding HolidayPay}"/>
+                <DataGridTextColumn Header="Больничные" IsReadOnly="True" Binding="{Binding SickPay}"/>
+                <DataGridTextColumn Header="Премия 10%" IsReadOnly="True" Binding="{Binding Prize}"/>
+                <DataGridTextColumn Header="Премия руководителя" IsReadOnly="True" Binding="{Binding PrizeBoss}"/>
+                <DataGridTextColumn Header="Штраф" Width="80" IsReadOnly="True" Binding="{Binding SummPenalties}"/>
+                <DataGridTextColumn Header="Итого начислено" IsReadOnly="True" Binding="{Binding FinalResultSalary}"/>
+                <DataGridTextColumn Header="Аванс" Width="80" IsReadOnly="True" Binding="{Binding Prepayment}"/>
+                <DataGridTextColumn Header="РКО" Width="80" IsReadOnly="True" Binding="{Binding RKO}"/>
+                <DataGridTextColumn Header="Исп. лист" Width="80" IsReadOnly="True" Binding="{Binding ExecutiveList}"/>
+                <DataGridTextColumn Header="Перечислено р/с" IsReadOnly="True" Binding="{Binding TransferByCard}"/>
+                <DataGridTextColumn Header="Остаток к выдаче" IsReadOnly="True" Binding="{Binding ResultSalary}"/>
             </DataGrid.Columns>
 
         </DataGrid>
