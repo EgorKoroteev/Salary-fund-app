@@ -53,6 +53,9 @@
                                 <TextBlock Text="Отработанные часы"/>
                                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}" PreviewTextInput="TextBox_PreviewTextInput_2"/>
 
+                                <TextBlock Text="Премия"/>
+                                <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding Prize}" PreviewTextInput="TextBox_PreviewTextInput_2"/>
+                                
                                 <TextBlock Text="Премия руководителя"/>
                                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding PrizeBoss}" PreviewTextInput="TextBox_PreviewTextInput_3"/>
 

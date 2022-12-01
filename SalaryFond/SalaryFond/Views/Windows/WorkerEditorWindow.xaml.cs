@@ -65,6 +65,18 @@ namespace SalaryFond.Views.Windows
 
         #endregion
 
+        #region Премия
+
+        public static readonly DependencyProperty PrizeProperty =
+            DependencyProperty.Register(nameof(Prize),
+                typeof(int),
+                typeof(WorkerEditorWindow),
+                new PropertyMetadata(default(int)));
+
+        public int Prize { get => (int)GetValue(PrizeProperty); set => SetValue(PrizeProperty, value); }
+
+        #endregion
+
         #region Премия от руководителя
 
         public static readonly DependencyProperty PrizeBossProperty =

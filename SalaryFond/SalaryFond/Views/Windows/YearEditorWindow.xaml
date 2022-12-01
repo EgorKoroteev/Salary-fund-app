@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <TextBox Width="180" Height="20" HorizontalAlignment="Center" Text="{Binding YearNumber}"/>
+            <TextBox Width="180" Height="20" HorizontalAlignment="Center" Text="{Binding YearNumber}" PreviewTextInput="TextBox_PreviewTextInput"/>
         </Grid>
 
         <Grid Grid.Row="1">

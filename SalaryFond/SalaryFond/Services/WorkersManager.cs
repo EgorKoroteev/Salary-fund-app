@@ -142,15 +142,23 @@ namespace SalaryFond.Services
             var year = _Years.Get(selectedYearSalary.Name);
             var month = _Months.Get(selectedMonth.Name);
 
+            year.Months[Months.IndexOf(month)].Companies.Clear();
+
             for (int i = 0; i < companies.Count; i++)
             {
                 year.Months[Months.IndexOf(month)].Companies.Add(companies[i]);
                 _Companies.Add(companies[i]);
+                for (int j = 0; j < companies[i].Workers.Count; j++)
+                {
+                    _Workers.Add(companies[i].Workers[j]);
+                }
             }
         }
 
         public void SetCompaniesFromBDYear(YearSalary year)
         {
+            _Years.RemoveAll();
+
             _Years.Add(year);
 
 

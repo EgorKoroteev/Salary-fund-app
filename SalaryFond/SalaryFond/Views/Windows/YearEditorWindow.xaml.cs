@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace SalaryFond.Views.Windows
 {
@@ -15,6 +16,14 @@ namespace SalaryFond.Views.Windows
         public YearEditorWindow()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

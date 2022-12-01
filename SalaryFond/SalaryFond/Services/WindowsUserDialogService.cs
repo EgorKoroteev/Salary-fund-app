@@ -6,17 +6,37 @@ using SalaryFond.Views.Windows;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Data;
 
 namespace SalaryFond.Services
 {
     internal class WindowsUserDialogService : IUserDialogService
     {
-        public bool OpenFile(string Title, out string SelectedFile, string Filter = "Все файлы (*.*)|*.*")
+        public bool OpenFile(string Title, out string SelectedFile, string FilterFile = "Excel files (*.xlsx)")
         {
             var file_dialog = new OpenFileDialog()
             {
                 Title = Title,
-                Filter = Filter
+                Filter = FilterFile,
+            };
+
+            if (file_dialog.ShowDialog() != true)
+            {
+                SelectedFile = null;
+                return false;
+            }
+
+            SelectedFile = file_dialog.FileName;
+            return true;
+        }
+
+        public bool SaveFile(string Title, out string SelectedFile, string FileExt, string FilterFile = "Excel files (*.xlsx)")
+        {
+            var file_dialog = new SaveFileDialog()
+            {
+                Title = Title,
+                Filter = FilterFile,
+                DefaultExt = FileExt
             };
 
             if (file_dialog.ShowDialog() != true)
@@ -102,6 +122,7 @@ namespace SalaryFond.Services
                 MainSalary = worker.MainSalary,
                 WorkedHours = worker.WorkedHours,
                 NormalHours = worker.NormalHours,
+                Prize = worker.Prize,
                 PrizeBoss = worker.PrizeBoss,
                 HolidayPay = worker.HolidayPay,
                 SickPay = worker.SickPay,
@@ -120,6 +141,7 @@ namespace SalaryFond.Services
             worker.MainSalary = dlg.MainSalary;
             worker.WorkedHours = dlg.WorkedHours;
             worker.NormalHours = dlg.NormalHours;
+            worker.Prize = dlg.Prize;
             worker.PrizeBoss = dlg.PrizeBoss;
             worker.HolidayPay = dlg.HolidayPay;
             worker.SickPay = dlg.SickPay;

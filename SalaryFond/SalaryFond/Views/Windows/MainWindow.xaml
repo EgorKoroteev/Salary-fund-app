@@ -22,7 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition/>
-            <RowDefinition Height="40"/>
+
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="5">
@@ -228,7 +228,7 @@
                                     <Grid Grid.Column="4">
                                         <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
                                             <StackPanel HorizontalAlignment="Center">
-                                                <TextBlock Text="Премия 10%"/>
+                                                <TextBlock Text="Премия"/>
                                                 <TextBlock Text="{Binding Prize}"/>
                                             </StackPanel>
                                         </Border>
@@ -292,12 +292,12 @@
                             </Grid>
                             <Grid Grid.Column="1">
                                 <DockPanel>
-                                    <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
+                                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                                         <TextBlock Text="Удержания = " DockPanel.Dock="Top" Margin="20,10,0,10"/>
                                         <TextBlock Text="{Binding SummPenalties}"  Margin="0,11,0,10"/>
                                     </StackPanel>
 
-                                    <DataGrid BorderBrush="Transparent" ItemsSource="{Binding Penalties}" AutoGenerateColumns="False" CanUserAddRows="False"  Margin="20,0">
+                                    <DataGrid Background="GhostWhite" BorderBrush="Transparent" ItemsSource="{Binding Penalties}" AutoGenerateColumns="False" CanUserAddRows="False"  Margin="20,0">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                                             <DataGridTextColumn Header="Тип" Binding="{Binding Type}"/>
@@ -398,8 +398,6 @@
             </DockPanel>
 
         </Grid>
-        <DockPanel Grid.Row="2" Grid.Column="4" Background="#EEF1FF">
-            <Button HorizontalAlignment="Right" Height="30" Width="160" Content="Обновить информацию" Margin="0,0,20,0" Background="CadetBlue" Foreground="Wheat"/>
-        </DockPanel>
+      
     </Grid>
 </Window>

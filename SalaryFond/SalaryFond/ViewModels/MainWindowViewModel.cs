@@ -205,7 +205,7 @@ namespace SalaryFond.ViewModels
 
             if (_UserDialog.Confirm("Не удалось добавить штраф. Повторить?", "Менеджер сотрудников"))
             {
-                OnCreateAdditionalProfessionCommandExecuted(p);
+                OnCreatePenaltieCommandExecuted(p);
             }
 
         }
@@ -264,7 +264,7 @@ namespace SalaryFond.ViewModels
 
             if (_UserDialog.Confirm("Не удалось добавить новое подразделение. Повторить?", "Менеджер подразделений"))
             {
-                OnCreateNewWorkerCommandExecuted(p);
+                OnCreateNewCompanyCommandExecuted(p);
             }
 
         }
@@ -312,7 +312,7 @@ namespace SalaryFond.ViewModels
 
             if (_UserDialog.Confirm("Не удалось добавить год. Повторить?", "Менеджер"))
             {
-                OnCreateNewWorkerCommandExecuted(p);
+                OnCreateNewYearCommandExecuted(p);
             }
 
         }
@@ -348,7 +348,10 @@ namespace SalaryFond.ViewModels
 
         private void OnExportBDCommandExecuted(object p)
         {
-            _WorkFiles.WriteJsonBD(SelectedYear);
+            if (_UserDialog.SaveFile("Сохранение файла", out var file_path, "json"))
+            {
+                _WorkFiles.WriteJsonBD(SelectedYear, file_path);
+            }
         }
 
         #endregion
@@ -384,9 +387,11 @@ namespace SalaryFond.ViewModels
         {
             if (_WorkersManager.Years.Count > 0)
             {
-                _WorkFiles.WriteJsonBDArchive(_WorkersManager.Years);
+                if (_UserDialog.SaveFile("Сохранение файла", out var file_path, "json"))
+                {
+                    _WorkFiles.WriteJsonBDArchive(_WorkersManager.Years, file_path);
+                }
             }
-            
         }
 
         #endregion
@@ -420,7 +425,10 @@ namespace SalaryFond.ViewModels
 
         private void OnExportDictionaryCommandExecuted(object p)
         {
-            _WorkFiles.WriteJsonDictionary(_WorkersManager.Companies);
+            if (_UserDialog.SaveFile("Сохранение файла", out var file_path, "json"))
+            {
+                _WorkFiles.WriteJsonDictionary(SelectedMonth.Companies, file_path);
+            }
         }
 
         #endregion
@@ -454,11 +462,17 @@ namespace SalaryFond.ViewModels
 
         private void OnExportExcelCommandExecuted(object p)
         {
-            if (_UserDialog.OpenFile("Выбор файла", out var file_path))
+            if (SelectedMonth.Companies.Count <= 0)
             {
-                _WorkFiles.WriteExcel(SelectedMonth.Companies, file_path);
+                _UserDialog.ShowWarning("Вы не добавили ни одного подразделения для выгрузки.", "Выгрузка Excel");
             }
-            
+            else if (SelectedMonth.Companies.Count > 0)
+            {
+                if (_UserDialog.SaveFile("Сохранение файла", out var file_path, "xlsx"))
+                {
+                    _WorkFiles.WriteExcel(SelectedMonth.Companies, file_path);
+                }
+            }
         }
 
         #endregion

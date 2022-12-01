@@ -17,20 +17,20 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Название"/>
                 <TextBox Name="CaseName" Width="180" HorizontalAlignment="Left" Text="{Binding NameCompany}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Расположение"/>
                 <TextBox Name="CaseLocation" Width="180" HorizontalAlignment="Left" Text="{Binding Location}"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="2">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Плановый зарплатный фонд"/>
                 <TextBox Name="CasePlanningSalaryFound" Width="180" HorizontalAlignment="Left" Text="{Binding PlanningSalaryFund}" PreviewTextInput="CasePlanningSalaryFound_PreviewTextInput"/>
             </StackPanel>

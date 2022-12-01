@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using SalaryFond.Services.Interfaces;
 using System.Collections.ObjectModel;
-using SalaryFond.Models;
 
 namespace SalaryFond.Services.Base
 {

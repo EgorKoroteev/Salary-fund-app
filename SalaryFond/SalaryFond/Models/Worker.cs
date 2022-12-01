@@ -190,25 +190,10 @@ namespace SalaryFond.Models
 
         public void SumResultSalary()
         {
-            if (Penalties.Count <= 0)
-            {
-                Prize = Convert.ToInt32(MainSalary / 10);
-            }
-
             if (MainSalary > 0 && NormalHours > 0)
             {
                 RateRUB = MainSalary / NormalHours;
-                MainResultSalary = Convert.ToInt32(WorkedHours * (MainSalary / NormalHours) + PrizeBoss + HolidayPay + SickPay);
-            }
-
-            if (Penalties.Count <= 0 && Prize > 0)
-            {
-                MainResultSalary += Prize;
-            }
-            else if (Penalties.Count > 0 && Prize > 0)
-            {
-                MainResultSalary -= Prize;
-                Prize = 0;
+                MainResultSalary = Convert.ToInt32(WorkedHours * RateRUB + PrizeBoss + HolidayPay + SickPay + Prize);
             }
 
             FinalResultSalary = MainResultSalary;

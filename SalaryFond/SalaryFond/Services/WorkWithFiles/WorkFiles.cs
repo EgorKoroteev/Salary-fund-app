@@ -16,36 +16,49 @@ namespace SalaryFond.Services.WorkWithFiles
             return year;
         }
 
-        public void WriteJsonBD(YearSalary year)
+        public void WriteJsonBD(YearSalary year, string file_path)
         {
-            File.WriteAllText("DataBase.json", JsonConvert.SerializeObject(year));
+            File.WriteAllText(file_path, JsonConvert.SerializeObject(year));
         }
 
         public ObservableCollection<YearSalary> ReadJsonBDArchive()
         {
             ObservableCollection<YearSalary> years = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBaseArchive.json")) : null;
+
             return years;
         }
 
-        public void WriteJsonBDArchive(ObservableCollection<YearSalary> years)
+
+        // Если выбран уже существующий файл, то как? А если... ?
+        public void WriteJsonBDArchive(ObservableCollection<YearSalary> years, string file_path)
         {
             ObservableCollection<YearSalary> yearsRead = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBaseArchive.json")) : null;
+
             if (yearsRead != null)
             {
-                if (years.Count == 1)
+                for (int i = 0; i < years.Count; i++)
                 {
-
+                    yearsRead.Add(years[i]);
                 }
-                else if (years.Count > 1)
-                {
 
-                }
+                File.WriteAllText(file_path, JsonConvert.SerializeObject(yearsRead));
+            }
+            else if (yearsRead == null)
+            {
+                File.WriteAllText(file_path, JsonConvert.SerializeObject(years));
             }
 
-            File.WriteAllText("DataBaseArchive.json", JsonConvert.SerializeObject(years));
+/*            if (years.Count == 1)
+            {
+                File.AppendAllText("DataBaseArchive.json", JsonConvert.SerializeObject(years));
+            }
+            else if (years.Count > 1)
+            {
+                
+            }*/
         }
 
-        public void WriteJsonDictionary(IEnumerable<Company> companies)
+        public void WriteJsonDictionary(ObservableCollection<Company> companies, string file_path)
         {
             foreach (Company company in companies)
             {
@@ -79,7 +92,7 @@ namespace SalaryFond.Services.WorkWithFiles
 
                 }
             }
-            File.WriteAllText("Dictionary.json", JsonConvert.SerializeObject(companies));
+            File.WriteAllText(file_path, JsonConvert.SerializeObject(companies));
         }
 
         public ObservableCollection<Company> ReadJsonDictionary()

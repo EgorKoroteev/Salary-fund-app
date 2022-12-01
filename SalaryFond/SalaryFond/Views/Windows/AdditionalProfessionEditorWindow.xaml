@@ -18,27 +18,27 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Название"/>
                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainProfession}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Оклад"/>
                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding MainSalary}" PreviewTextInput="TextBox_PreviewTextInput"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="2">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Часы(норма)"/>
                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding NormalHours}" PreviewTextInput="TextBox_PreviewTextInput_1"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="3">
-            <StackPanel>
+            <StackPanel Margin="10,0">
                 <TextBlock Text="Часы(отработанные)"/>
                 <TextBox Width="180" HorizontalAlignment="Left" Text="{Binding WorkedHours}" PreviewTextInput="TextBox_PreviewTextInput_2"/>
             </StackPanel>
