@@ -1,18 +1,16 @@
 ﻿using Newtonsoft.Json;
 using OfficeOpenXml;
 using SalaryFond.Models;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-
 
 namespace SalaryFond.Services.WorkWithFiles
 {
     class WorkFiles
     {
-        public YearSalary ReadJsonBD()
+        public YearSalary ReadJsonBD(string file_path)
         {
-            YearSalary year = File.Exists("DataBase.json") ? JsonConvert.DeserializeObject<YearSalary>(File.ReadAllText("DataBase.json")) : null;
+            YearSalary year = File.Exists(file_path) ? JsonConvert.DeserializeObject<YearSalary>(File.ReadAllText(file_path)) : null;
             return year;
         }
 
@@ -21,18 +19,16 @@ namespace SalaryFond.Services.WorkWithFiles
             File.WriteAllText(file_path, JsonConvert.SerializeObject(year));
         }
 
-        public ObservableCollection<YearSalary> ReadJsonBDArchive()
+        public ObservableCollection<YearSalary> ReadJsonBDArchive(string file_path)
         {
-            ObservableCollection<YearSalary> years = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBaseArchive.json")) : null;
+            ObservableCollection<YearSalary> years = File.Exists(file_path) ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText(file_path)) : null;
 
             return years;
         }
 
-
-        // Если выбран уже существующий файл, то как? А если... ?
         public void WriteJsonBDArchive(ObservableCollection<YearSalary> years, string file_path)
         {
-            ObservableCollection<YearSalary> yearsRead = File.Exists("DataBaseArchive.json") ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText("DataBaseArchive.json")) : null;
+            ObservableCollection<YearSalary> yearsRead = File.Exists(file_path) ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText(file_path)) : null;
 
             if (yearsRead != null)
             {
@@ -47,57 +43,49 @@ namespace SalaryFond.Services.WorkWithFiles
             {
                 File.WriteAllText(file_path, JsonConvert.SerializeObject(years));
             }
+        }
 
-/*            if (years.Count == 1)
-            {
-                File.AppendAllText("DataBaseArchive.json", JsonConvert.SerializeObject(years));
-            }
-            else if (years.Count > 1)
-            {
-                
-            }*/
+        public void WriteJsonBDArchiveNew(ObservableCollection<YearSalary> years, string file_path)
+        {
+            File.WriteAllText(file_path, JsonConvert.SerializeObject(years));
         }
 
         public void WriteJsonDictionary(ObservableCollection<Company> companies, string file_path)
         {
-            foreach (Company company in companies)
-            {
-                company.FactSalaryFund = 0;
-                company.NormalHours = 0;
-                company.WorkedHours = 0;
-            }
+            ObservableCollection<Company> companiesList = new ObservableCollection<Company>();
 
-            foreach (Company company in companies)
+            for (int i = 0; i < companies.Count; i++)
             {
-                foreach (Worker worker in company.Workers)
+                companiesList.Add(new Company()
                 {
-                    worker.HolidayPay = 0;
-                    worker.SickPay = 0;
-                    worker.RKO = 0;
-                    worker.ExecutiveList = 0;
-                    worker.Prize = 0;
-                    worker.PrizeBoss = 0;
-                    worker.MainSalary = 0;
-                    worker.RateRUB = 0;
-                    worker.NormalHours = 0;
-                    worker.WorkedHours = 0;
-                    worker.MainResultSalary = 0;
-                    worker.SummPay = 0;
-                    worker.SummPenalties = 0;
-                    worker.SummAdditionalProfessions = 0;
-                    worker.FinalResultSalary = 0;
-                    worker.TransferByCard = 0;
-                    worker.AdditionalProfessions.Clear();
-                    worker.Penalties.Clear();
-
-                }
+                    Id = companies[i].Id,
+                    Name = companies[i].Name,
+                    Location = companies[i].Location,
+                    NormalHours = companies[i].NormalHours,
+                    PlanningSalaryFund = companies[i].PlanningSalaryFund
+                });
             }
-            File.WriteAllText(file_path, JsonConvert.SerializeObject(companies));
+
+            for (int i = 0; i < companies.Count; i++)
+            {
+                for (int j = 0; j < companies[i].Workers.Count; j++)
+                {
+                    companiesList[i].Workers.Add(new Worker
+                    {
+                        Id = companies[i].Workers[j].Id,
+                        FIO = companies[i].Workers[j].FIO,
+                        MainProfession = companies[i].Workers[j].MainProfession
+                });
+                }
+                
+            }
+
+            File.WriteAllText(file_path, JsonConvert.SerializeObject(companiesList));
         }
 
-        public ObservableCollection<Company> ReadJsonDictionary()
+        public ObservableCollection<Company> ReadJsonDictionary(string file_path)
         {
-            ObservableCollection<Company> companies = File.Exists("Dictionary.json") ? JsonConvert.DeserializeObject<ObservableCollection<Company>>(File.ReadAllText("Dictionary.json")) : null;
+            ObservableCollection<Company> companies = File.Exists(file_path) ? JsonConvert.DeserializeObject<ObservableCollection<Company>>(File.ReadAllText(file_path)) : null;
             return companies;
         }
 

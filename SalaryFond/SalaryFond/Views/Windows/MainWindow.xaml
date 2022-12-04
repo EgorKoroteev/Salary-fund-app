@@ -33,8 +33,8 @@
             </MenuItem>
             <MenuItem Header="Архив">
                 <MenuItem Header="Загрузить архив" Command="{Binding ImportBDArchiveCommand}"/>
-                <MenuItem Header="Выгрузить архив" Command="{Binding ExportBDArchiveCommand}"/>
-
+                <MenuItem Header="Выгрузить новый архив" Command="{Binding ExportBDArchiveNewCommand}"/>
+                <MenuItem Header="Выгрузить в существующий архив" Command="{Binding ExportBDArchiveCommand}"/>
             </MenuItem>
             <MenuItem Header="Таблица сотрудников" Command="{Binding OpenWorkerListWindowCommand}" CommandParameter="{Binding SelectedCompany}"/>
             <MenuItem Header="Excel">

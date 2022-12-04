@@ -18,4 +18,3 @@ namespace SalaryFond.Models
         public ObservableCollection<Company> Companies { get; set; } = new ObservableCollection<Company>();
     }
 }
-

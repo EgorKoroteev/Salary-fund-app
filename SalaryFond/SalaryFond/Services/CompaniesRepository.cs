@@ -2,7 +2,6 @@
 using SalaryFond.Services.Base;
 using System.Linq;
 
-
 namespace SalaryFond.Services
 {
     internal class CompaniesRepository : RepositoryInMemory<Company>

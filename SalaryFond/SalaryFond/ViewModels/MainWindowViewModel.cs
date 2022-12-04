@@ -365,17 +365,39 @@ namespace SalaryFond.ViewModels
 
         private void OnImportBDCommandExecuted(object p)
         {
-            var year = _WorkFiles.ReadJsonBD();
-            if (year != null)
+            if (_UserDialog.OpenFile("Сохранение файла", out var file_path))
             {
-                _WorkersManager.SetCompaniesFromBDYear(year);
+                var year = _WorkFiles.ReadJsonBD(file_path);
+                if (year != null)
+                {
+                    _WorkersManager.SetCompaniesFromBDYear(year);
+                }
             }
-            
         }
 
         #endregion
 
-        #region Команда для выгрузги БД архива
+        #region Команда для выгрузги БД нового архива
+
+        private ICommand _ExportBDArchiveNewCommand;
+
+        public ICommand ExportBDArchiveNewCommand => _ExportBDArchiveNewCommand ??= new LambdaCommand(OnExportBDArchiveNewCommandExecuted, CanExportBDArchiveNewCommandExecute);
+
+        private static bool CanExportBDArchiveNewCommandExecute(object p) => true;
+
+        private void OnExportBDArchiveNewCommandExecuted(object p)
+        {
+            if (_WorkersManager.Years.Count > 0)
+            {
+                if (_UserDialog.SaveFile("Сохранение файла", out var file_path, "json"))
+                {
+                    _WorkFiles.WriteJsonBDArchiveNew(_WorkersManager.Years, file_path);
+                }
+            }
+        }
+
+        #endregion
+        #region Команда для выгрузги БД в существующий архив
 
         private ICommand _ExportBDArchiveCommand;
 
@@ -387,7 +409,7 @@ namespace SalaryFond.ViewModels
         {
             if (_WorkersManager.Years.Count > 0)
             {
-                if (_UserDialog.SaveFile("Сохранение файла", out var file_path, "json"))
+                if (_UserDialog.OpenFile("Сохранение файла", out var file_path))
                 {
                     _WorkFiles.WriteJsonBDArchive(_WorkersManager.Years, file_path);
                 }
@@ -405,12 +427,14 @@ namespace SalaryFond.ViewModels
 
         private void OnImportBDArchiveCommandExecuted(object p)
         {
-            var years = _WorkFiles.ReadJsonBDArchive();
-            if (years != null)
+            if (_UserDialog.OpenFile("Сохранение файла", out var file_path))
             {
-                _WorkersManager.SetCompaniesFromBD(years);
+                var years = _WorkFiles.ReadJsonBDArchive(file_path);
+                if (years != null)
+                {
+                    _WorkersManager.SetCompaniesFromBD(years);
+                }
             }
-            
         }
 
         #endregion
@@ -442,11 +466,15 @@ namespace SalaryFond.ViewModels
 
         private void OnImportDictionaryCommandExecuted(object p)
         {
-            var companies = _WorkFiles.ReadJsonDictionary();
-            if (companies != null)
+            if (_UserDialog.OpenFile("Сохранение файла", out var file_path))
             {
-                _WorkersManager.SetCompaniesFromDictionary(SelectedYear, SelectedMonth, companies);
+                var companies = _WorkFiles.ReadJsonDictionary(file_path);
+                if (companies != null)
+                {
+                    _WorkersManager.SetCompaniesFromDictionary(SelectedYear, SelectedMonth, companies);
+                }
             }
+
             
         }
 
@@ -503,7 +531,6 @@ namespace SalaryFond.ViewModels
         public ObservableCollection<Month> Months => _WorkersManager.Months;
 
         public ObservableCollection<YearSalary> Years => _WorkersManager.Years;
-
 
         public MainWindowViewModel(WorkersManager WorkersManager, IUserDialogService UserDialog, WorkFiles WorkFiles)
         {
