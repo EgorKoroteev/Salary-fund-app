@@ -68,8 +68,8 @@ namespace SalaryFond.Services
                 case YearSalary year:
                     return EditYear(year);
 
-                case Worker worker:
-                    return EditWorker(worker);
+/*                case Worker worker:
+                    return EditWorker(worker);*/
 
                 case Company company:
                     return EditCompany(company);
@@ -111,7 +111,7 @@ namespace SalaryFond.Services
             return true;
         }
 
-        private static bool EditWorker(Worker worker)
+        public bool EditWorker(Worker worker, Company selectedCompany)
         {
             var dlg = new WorkerEditorWindow
             {
@@ -150,6 +150,9 @@ namespace SalaryFond.Services
 
             worker.SumResultSalary();
             worker.CalculateAdditionalAndPenaltie();
+            selectedCompany.CalculateNormalHours();
+            selectedCompany.CalculateSalaryFond();
+            selectedCompany.CalculateWorkedHours();
 
             return true;
         }

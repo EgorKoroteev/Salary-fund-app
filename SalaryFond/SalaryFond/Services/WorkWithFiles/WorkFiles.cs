@@ -1,8 +1,12 @@
 ﻿using Newtonsoft.Json;
 using OfficeOpenXml;
 using SalaryFond.Models;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Documents;
 
 namespace SalaryFond.Services.WorkWithFiles
 {
@@ -10,8 +14,12 @@ namespace SalaryFond.Services.WorkWithFiles
     {
         public YearSalary ReadJsonBD(string file_path)
         {
-            YearSalary year = File.Exists(file_path) ? JsonConvert.DeserializeObject<YearSalary>(File.ReadAllText(file_path)) : null;
-            return year;
+            if (file_path[file_path.Length - 1] == 'n' && file_path[file_path.Length - 2] == 'o' && file_path[file_path.Length - 3] == 's' && file_path[file_path.Length - 4] == 'j')
+            {
+                YearSalary year = File.Exists(file_path) ? JsonConvert.DeserializeObject<YearSalary>(File.ReadAllText(file_path)) : null;
+                return year;
+            }
+            return null;
         }
 
         public void WriteJsonBD(YearSalary year, string file_path)
@@ -21,9 +29,23 @@ namespace SalaryFond.Services.WorkWithFiles
 
         public ObservableCollection<YearSalary> ReadJsonBDArchive(string file_path)
         {
-            ObservableCollection<YearSalary> years = File.Exists(file_path) ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText(file_path)) : null;
+            if (file_path[file_path.Length - 1] == 'n' && file_path[file_path.Length - 2] == 'o' && file_path[file_path.Length - 3] == 's' && file_path[file_path.Length - 4] == 'j')
+            {
+                ObservableCollection<YearSalary> years = File.Exists(file_path) ? JsonConvert.DeserializeObject<ObservableCollection<YearSalary>>(File.ReadAllText(file_path)) : null;
 
-            return years;
+                for (int i = 0; i < years.Count - 1; i++)
+                {
+                    if (Convert.ToInt32(years[i].Name) < Convert.ToInt32(years[i + 1].Name))
+                    {
+                        var tmp = years[i];
+                        years[i] = years[i + 1];
+                        years[i + 1] = tmp;
+                    }
+                }
+                return years;
+            }
+            return null;
+            
         }
 
         public void WriteJsonBDArchive(ObservableCollection<YearSalary> years, string file_path)
@@ -32,9 +54,23 @@ namespace SalaryFond.Services.WorkWithFiles
 
             if (yearsRead != null)
             {
+                List<int> ints = new List<int>();
                 for (int i = 0; i < years.Count; i++)
                 {
+                    for (int j = 0; j < yearsRead.Count; j++)
+                    {
+                        if (years[i].Name == yearsRead[j].Name)
+                        {
+                            ints.Add(j);
+                        }
+                    }
+
                     yearsRead.Add(years[i]);
+                }
+
+                for (int i = 0; i < ints.Count; i++)
+                {
+                    yearsRead.RemoveAt(ints[i]);
                 }
 
                 File.WriteAllText(file_path, JsonConvert.SerializeObject(yearsRead));
@@ -85,11 +121,15 @@ namespace SalaryFond.Services.WorkWithFiles
 
         public ObservableCollection<Company> ReadJsonDictionary(string file_path)
         {
-            ObservableCollection<Company> companies = File.Exists(file_path) ? JsonConvert.DeserializeObject<ObservableCollection<Company>>(File.ReadAllText(file_path)) : null;
-            return companies;
+            if (file_path[file_path.Length - 1] == 'n' && file_path[file_path.Length - 2] == 'o' && file_path[file_path.Length - 3] == 's' && file_path[file_path.Length - 4] == 'j')
+            {
+                ObservableCollection<Company> companies = File.Exists(file_path) ? JsonConvert.DeserializeObject<ObservableCollection<Company>>(File.ReadAllText(file_path)) : null;
+                return companies;
+            }
+            return null;
         }
 
-        public void WriteExcel(ObservableCollection<Company> Companies, string file_path)
+        public bool WriteExcel(ObservableCollection<Company> Companies, string file_path)
         {
             var report = new ExcelPackage();
 
@@ -107,7 +147,6 @@ namespace SalaryFond.Services.WorkWithFiles
             for (int i = 0; i < report.Workbook.Worksheets.Count; i++)
             {
                 countStep = 2;
-                // Нужно выгружать из репозитория Месяцы, а не Компании
                 for (int j = 0; j < Companies[i].Workers.Count; j++)
                 {
                     countWorkers++;
@@ -118,7 +157,7 @@ namespace SalaryFond.Services.WorkWithFiles
                     report.Workbook.Worksheets[i].Cells[j + countStep, 5].Value = Companies[i].Workers[j].WorkedHours;
                     report.Workbook.Worksheets[i].Cells[j + countStep, 6].Value = Companies[i].Workers[j].NormalHours;
                     report.Workbook.Worksheets[i].Cells[j + countStep, 7].Value = Companies[i].Workers[j].RateRUB;
-                    report.Workbook.Worksheets[i].Cells[j + countStep, 8].Value = Companies[i].Workers[j].MainResultSalary - Companies[i].Workers[j].Prize;
+                    report.Workbook.Worksheets[i].Cells[j + countStep, 8].Value = Companies[i].Workers[j].MainResultSalary - Companies[i].Workers[j].Prize - Companies[i].Workers[j].HolidayPay - Companies[i].Workers[j].SickPay - Companies[i].Workers[j].PrizeBoss;
                     report.Workbook.Worksheets[i].Cells[j + countStep, 9].Value = Companies[i].Workers[j].HolidayPay;
                     report.Workbook.Worksheets[i].Cells[j + countStep, 10].Value = Companies[i].Workers[j].SickPay;
                     report.Workbook.Worksheets[i].Cells[j + countStep, 11].Value = Companies[i].Workers[j].Prize;
@@ -144,6 +183,7 @@ namespace SalaryFond.Services.WorkWithFiles
                             report.Workbook.Worksheets[i].Cells[j + countStep, 6].Value = Companies[i].Workers[j].AdditionalProfessions[k].NormalHours;
                             report.Workbook.Worksheets[i].Cells[j + countStep, 7].Value = Companies[i].Workers[j].AdditionalProfessions[k].RateRUB;
                             report.Workbook.Worksheets[i].Cells[j + countStep, 8].Value = Companies[i].Workers[j].AdditionalProfessions[k].ResultSalary;
+                            report.Workbook.Worksheets[i].Cells[j + countStep, 14].Value = Companies[i].Workers[j].AdditionalProfessions[k].ResultSalary;
                             report.Workbook.Worksheets[i].Cells[j + countStep, 19].Value = Companies[i].Workers[j].AdditionalProfessions[k].ResultSalary;
                         }
                     }
@@ -177,8 +217,15 @@ namespace SalaryFond.Services.WorkWithFiles
                 report.Workbook.Worksheets[i].Cells[1, 1, 1, 19].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             }
 
-            File.WriteAllBytes(file_path, report.GetAsByteArray());
-
+            try
+            {
+                File.WriteAllBytes(file_path, report.GetAsByteArray());
+            }
+            catch (System.IO.IOException e)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -75,6 +75,14 @@ namespace SalaryFond.Models
             {
                 NormalHours += Workers[i].NormalHours;
             }
+
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                for (int j = 0; j < Workers[i].AdditionalProfessions.Count; j++)
+                {
+                    NormalHours += Workers[i].AdditionalProfessions[j].NormalHours;
+                }
+            }
         }
 
         public void CalculateWorkedHours()
@@ -84,6 +92,14 @@ namespace SalaryFond.Models
             for (int i = 0; i < Workers.Count; i++)
             {
                 WorkedHours += Workers[i].WorkedHours;
+            }
+
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                for (int j = 0; j < Workers[i].AdditionalProfessions.Count; j++)
+                {
+                    WorkedHours += Workers[i].AdditionalProfessions[j].WorkedHours;
+                }
             }
         }
     }

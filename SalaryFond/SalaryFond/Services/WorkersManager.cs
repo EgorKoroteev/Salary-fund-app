@@ -1,4 +1,5 @@
-﻿using SalaryFond.Models;
+﻿using SalaryFond.Infrastructure.Commads.Base;
+using SalaryFond.Models;
 using System;
 using System.Collections.ObjectModel;
 
@@ -69,6 +70,20 @@ namespace SalaryFond.Services
             year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateSalaryFond();
             year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateNormalHours();
             year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].CalculateWorkedHours();
+
+            for (int j = 0; j < year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers.Count; j++)
+            {
+                for (int i = 0; i < year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers.Count - 1; i++)
+                {
+                    if (year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers[i].FIO[0] > year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers[i + 1].FIO[0])
+                    {
+                        var tmp = year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers[i];
+                        year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers[i] = year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers[i + 1];
+                        year.Months[Months.IndexOf(month)].Companies[Companies.IndexOf(company)].Workers[i + 1] = tmp;
+                    }
+                }
+            }
+
             _Workers.Add(Worker);
             return true;
         }
@@ -126,11 +141,9 @@ namespace SalaryFond.Services
                 _Years.Add(year);
             }
 
-            // Определенный месяц определенного года
 
-            //year.months[4].Companies.Add(Company);
             year.Months[Months.IndexOf(month)].Companies.Add(Company);
-            //month.Companies.Add(Company);
+
             _Companies.Add(Company);
             return true;
         }

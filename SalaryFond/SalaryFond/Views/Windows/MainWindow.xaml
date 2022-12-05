@@ -26,9 +26,9 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="5">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Загрузить базу данных" Command="{Binding ImportBDCommand}"/>
-                <MenuItem Header="Выгрузить базу данных" Command="{Binding ExportBDCommand}"  CommandParameter="{Binding SelectedYear}"/>
+            <MenuItem Header="Текущий год">
+                <MenuItem Header="Загрузить текущий год" Command="{Binding ImportBDCommand}"/>
+                <MenuItem Header="Выгрузить текущий год" Command="{Binding ExportBDCommand}"  CommandParameter="{Binding SelectedYear}"/>
 
             </MenuItem>
             <MenuItem Header="Архив">

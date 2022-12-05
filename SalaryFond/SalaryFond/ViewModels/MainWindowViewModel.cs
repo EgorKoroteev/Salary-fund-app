@@ -83,7 +83,7 @@ namespace SalaryFond.ViewModels
 
         private void OnEditWorkerCommandExecuted(object p)
         {
-            if (_UserDialog.Edit(p))
+            if (_UserDialog.EditWorker((Worker)p, SelectedCompany))
             {
                 _WorkersManager.Update((Worker)p);
                 var selectCompany = SelectedCompany;
@@ -114,7 +114,7 @@ namespace SalaryFond.ViewModels
 
             var worker = new Worker();
 
-            if (!_UserDialog.Edit(worker) || _WorkersManager.Create(SelectedYear.Name, SelectedMonth.Name, worker, company.Name))
+            if (!_UserDialog.EditWorker(worker, SelectedCompany) || _WorkersManager.Create(SelectedYear.Name, SelectedMonth.Name, worker, company.Name))
             {
                 OnPropertyChanged(nameof(Workers));
                 _UserDialog.ShowInformation("Сотрудник создан", "Медеджер сотрудников");
@@ -498,7 +498,10 @@ namespace SalaryFond.ViewModels
             {
                 if (_UserDialog.SaveFile("Сохранение файла", out var file_path, "xlsx"))
                 {
-                    _WorkFiles.WriteExcel(SelectedMonth.Companies, file_path);
+                    if (!_WorkFiles.WriteExcel(SelectedMonth.Companies, file_path))
+                    {
+                        _UserDialog.ShowError("Excel файл не закрыт", "Выгрузка Excel");
+                    }
                 }
             }
         }

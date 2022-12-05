@@ -7,6 +7,8 @@ namespace SalaryFond.Services.Interfaces
     {
         bool Edit(object item);
 
+        bool EditWorker(Worker worker, Company selectedCompany);
+
         void ShowInformation(string Information, string Caption);
 
         void ShowWarning(string Message, string Caption);

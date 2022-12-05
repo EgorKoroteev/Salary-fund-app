@@ -52,9 +52,9 @@ namespace SalaryFond.Models
             set { _WorkedHours = value; }
         }
 
-        private float _RateRUB;
+        private double _RateRUB;
 
-        public float RateRUB
+        public double RateRUB
         {
             get { return _RateRUB; }
             set { _RateRUB = value; }
@@ -192,7 +192,7 @@ namespace SalaryFond.Models
         {
             if (MainSalary > 0 && NormalHours > 0)
             {
-                RateRUB = MainSalary / NormalHours;
+                RateRUB = Math.Round(MainSalary / NormalHours, 2);
                 MainResultSalary = Convert.ToInt32(WorkedHours * RateRUB + PrizeBoss + HolidayPay + SickPay + Prize);
             }
 
